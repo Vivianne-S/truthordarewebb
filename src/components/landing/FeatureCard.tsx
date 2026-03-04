@@ -1,21 +1,29 @@
 "use client";
 
 import { useState, ReactNode } from "react";
-import styles from "./landing.module.css";
+import styles from "./FeatureCard.module.css";
 
 type FeatureCardProps = {
   label: string;
   imageSrc?: string | null;
   children?: ReactNode;
+  isActive?: boolean;
 };
 
-export default function FeatureCard({ label, imageSrc, children }: FeatureCardProps) {
+export default function FeatureCard({
+  label,
+  imageSrc,
+  children,
+  isActive = false,
+}: FeatureCardProps) {
   const [imageError, setImageError] = useState(false);
   const showImage = imageSrc && !imageError;
 
   return (
     <div className={styles.featureCard}>
-      <div className={styles.featureCardImageWrap}>
+      <div
+        className={`${styles.featureCardImageWrap} ${isActive ? styles.featureCardImageWrapActive : ""}`}
+      >
         {showImage ? (
           <img
             src={imageSrc}

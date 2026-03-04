@@ -1,0 +1,26 @@
+.ctaSection {
+  height: 110vh;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 24px;
+}
+
+.ctaContent {
+  max-width: 720px;
+  opacity: 0.9;
+}
+
+.ctaTitle {
+  margin: 0;
+  font-size: clamp(28px, 4vw, 48px);
+}
+
+.ctaSubtitle {
+  margin-top: 12px;
+  opacity: 0.85;
+  line-height: 1.6;
+}
