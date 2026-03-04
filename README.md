@@ -20,6 +20,14 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+### Paket för cinematic / scroll-animationer
+
+- **GSAP** – animationer (tweens, timelines). Redan installerat.
+- **GSAP ScrollTrigger** – scroll‑drivna animationer, pin, scrub. Ingår i GSAP (`gsap/ScrollTrigger`), inget extra paket.
+- **Lenis** (valfritt) – mjukare scroll. Finns i projektet; kan kopplas till ScrollTrigger för ännu smidigare känsla.
+
+Det räcker alltså med **GSAP** för cinematic‑sidor; ScrollTrigger är inbyggt. Framer Motion eller React Spring kan användas istället, men GSAP + ScrollTrigger är vanligast för scroll‑jacking och komplexa scroll‑scener.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
