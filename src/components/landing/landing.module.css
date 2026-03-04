@@ -1,0 +1,39 @@
+.page{
+    min-height:100vh;
+    background:#050010;
+    color:white;
+  }
+  
+  /* cosmic background */
+  
+  .bgWrap{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    z-index:0;
+  }
+  
+  /* main sphere */
+  .bgLayer1{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+  
+    width:max(900px,100vw);
+  
+    opacity:0.9;
+  }
+  
+  /* glow layer */
+  .bgLayer2{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+  
+    width:max(1100px,120vw);
+  
+    opacity:0.8;
+    mix-blend-mode:screen;
+  }
