@@ -1,0 +1,89 @@
+.hero {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+
+.titleWrap {
+  position: relative;
+  margin: 0;
+}
+
+.titleGlow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-bebas), sans-serif;
+  font-size: clamp(3.5rem, 14vw, 8.5rem);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  white-space: nowrap;
+  color: transparent;
+  background: linear-gradient(
+    135deg,
+    rgba(180, 100, 255, 0.5) 0%,
+    rgba(220, 180, 255, 0.35) 50%,
+    rgba(140, 60, 200, 0.5) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: blur(28px);
+  opacity: 0.85;
+  pointer-events: none;
+  animation: titleGlowPulse 4s ease-in-out infinite;
+}
+
+@keyframes titleGlowPulse {
+  0%,
+  100% {
+    opacity: 0.75;
+    filter: blur(28px);
+  }
+  50% {
+    opacity: 0.95;
+    filter: blur(32px);
+  }
+}
+
+.title {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-bebas), "Impact", "Arial Black", sans-serif;
+  font-size: clamp(3.5rem, 14vw, 8.5rem);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1.05;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.08em 0.2em;
+  color: #fff;
+  text-shadow: 0 0 40px rgba(180, 120, 255, 0.35),
+    0 0 80px rgba(100, 50, 180, 0.2);
+}
+
+.titleWord {
+  display: inline-block;
+}
+
+.subtitle {
+  font-size: clamp(0.95rem, 2.2vw, 1.2rem);
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin: 1.75rem 0 0;
+  max-width: 420px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  opacity: 0;
+  transform: translateY(20px);
+}

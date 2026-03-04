@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import styles from "./landing.module.css";
+import styles from "./CosmicBackground.module.css";
 
 type CosmicBackgroundProps = {
   layer1Src?: string;
