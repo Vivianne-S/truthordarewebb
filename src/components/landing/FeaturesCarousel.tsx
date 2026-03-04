@@ -102,7 +102,7 @@ export default function FeaturesCarousel() {
 
           const norm = Math.min(1, distance / 420);
 
-          const scale = 1.05 - 0.22 * norm;
+          const scale = i === closestIndex ? 1.12 : 0.92;
           const opacity = 0.55 + 0.45 * (1 - norm);
           const rotateY = ((cardCenter - cx) / 520) * -8;
 

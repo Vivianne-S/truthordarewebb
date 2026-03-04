@@ -5,8 +5,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 2rem 1.5rem;
+  justify-content: flex-start;
+  padding: 18vh 1.5rem 2rem;
   text-align: center;
 }
 
@@ -76,7 +76,7 @@
 }
 
 .subtitle {
-  font-size: clamp(0.95rem, 2.2vw, 1.2rem);
+  font-size: clamp(1.1rem, 2.8vw, 1.45rem);
   font-weight: 400;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -86,4 +86,52 @@
   color: rgba(255, 255, 255, 0.9);
   opacity: 0;
   transform: translateY(20px);
+}
+
+.heroTags {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 18vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 2rem;
+  pointer-events: none;
+}
+
+.heroTagsLeft,
+.heroTagsRight {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  max-width: 45%;
+}
+
+.heroTagsLeft {
+  align-items: flex-start;
+}
+
+.heroTagsLeft .heroTag {
+  transform-origin: left center;
+}
+
+.heroTagsRight {
+  align-items: flex-end;
+}
+
+.heroTagsRight .heroTag {
+  transform-origin: right center;
+}
+
+.heroTag {
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 0 24px rgba(180, 120, 255, 0.35),
+    0 0 48px rgba(140, 0, 255, 0.2);
+  white-space: nowrap;
+  opacity: 0.9;
 }

@@ -8,22 +8,26 @@
   justify-content: center;
   padding: 2rem 1rem;
   gap: 1.25rem;
+  padding-bottom: 4.5rem;
 }
 
 .featureCardImageWrap {
-  width: min(340px, 82vw);
+  width: min(400px, 90vw);
   aspect-ratio: 9/19;
   border-radius: 2.25rem;
   overflow: hidden;
+  transform-origin: center center;
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.08),
     0 25px 60px rgba(0, 0, 0, 0.6),
     0 0 80px rgba(138, 43, 226, 0.25),
     0 0 140px rgba(75, 0, 130, 0.15);
   background: linear-gradient(145deg, #1a0a2e 0%, #0d0518 100%);
+  transition: box-shadow 0.35s ease, transform 0.35s ease;
 }
 
 .featureCardImageWrapActive {
+  transform: scale(1.12);
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.15),
     0 30px 80px rgba(0, 0, 0, 0.7),
@@ -48,11 +52,31 @@
   background: linear-gradient(145deg, #1a0a2e 0%, #0d0518 100%);
 }
 
-.featureCardLabel {
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
+.featureCardLabel{
+  margin-top: 18px;
+  padding: 10px 14px;
+  border-radius: 999px;
+
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  opacity: 0.9;
-  color: rgba(255, 255, 255, 0.85);
+
+  color: rgba(255,255,255,0.92);
+
+  background: rgba(8, 3, 16, 0.35);
+  border: 1px solid rgba(255,255,255,0.10);
+  backdrop-filter: blur(10px);
+
+  box-shadow:
+    0 10px 40px rgba(0,0,0,0.35),
+    0 0 30px rgba(140,0,255,0.18);
+}
+.featureCardImageWrapActive + .featureCardLabel{
+  background: rgba(12, 4, 24, 0.5);
+  border-color: rgba(255, 60, 200, 0.25);
+  box-shadow:
+    0 12px 50px rgba(0,0,0,0.45),
+    0 0 40px rgba(255,60,200,0.25),
+    0 0 70px rgba(140,0,255,0.18);
 }
