@@ -2,13 +2,10 @@
 
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
 import styles from "./Hero.module.css";
 
-gsap.registerPlugin(ScrollTrigger);
-
 const TAGS_LEFT = ["Play with friends", "Challenge yourself", "No limits"];
-const TAGS_RIGHT = ["Have fun", "Spice up the night", "Get the party started"];
+const TAGS_RIGHT = ["Have fun", "Get the party started", "Make memories"];
 
 export default function Hero() {
   const heroRef = useRef<HTMLElement>(null);
@@ -38,7 +35,6 @@ export default function Hero() {
 
       if (leftTags.length === 0 && rightTags.length === 0) return;
 
-      // Light sweep över titeln var 6–10 sekund (lens flare / ljusreflektion)
       if (lightSweepRef.current) {
         gsap.set(lightSweepRef.current, { x: "-100%" });
         gsap.to(lightSweepRef.current, {
@@ -50,53 +46,11 @@ export default function Hero() {
         });
       }
 
-      const setupScrollTrigger = () => {
-        leftTags.forEach((el) => {
-          gsap.fromTo(
-            el,
-            { x: 0, opacity: 0.9, scale: 1 },
-            {
-              x: -200,
-              opacity: 0,
-              scale: 1.5,
-              ease: "power3.in",
-              scrollTrigger: {
-                trigger: heroRef.current,
-                start: "top top",
-                end: "top bottom",
-                scrub: 2.5,
-              },
-            }
-          );
-        });
 
-        rightTags.forEach((el) => {
-          gsap.fromTo(
-            el,
-            { x: 0, opacity: 0.9, scale: 1 },
-            {
-              x: 200,
-              opacity: 0,
-              scale: 1.5,
-              ease: "power3.in",
-              scrollTrigger: {
-                trigger: heroRef.current,
-                start: "top top",
-                end: "top bottom",
-                scrub: 2.5,
-              },
-            }
-          );
-        });
-      };
-
-      // Load animation: kom in rad för rad, samma sätt som dom försvinner (från isär till ihop)
       gsap.set(leftTags, { x: -200, opacity: 0, scale: 1.5 });
       gsap.set(rightTags, { x: 200, opacity: 0, scale: 1.5 });
 
-      const tl = gsap.timeline({
-        onComplete: setupScrollTrigger,
-      });
+      const tl = gsap.timeline();
       const rowDelay = 0.9;
       for (let i = 0; i < Math.max(leftTags.length, rightTags.length); i++) {
         const leftEl = leftTags[i];
@@ -129,7 +83,7 @@ export default function Hero() {
       </div>
 
       <p ref={subtitleRef} className={styles.subtitle}>
-        Perfect for parties, birthdays, date nights & friend groups.
+        Perfect for parties, birthdays, girls nights, guys nights & friend groups.
       </p>
 
       <div className={styles.heroTags}>
@@ -147,6 +101,11 @@ export default function Hero() {
             </span>
           ))}
         </div>
+      </div>
+
+      <div className={styles.scrollCue}>
+        <span className={styles.scrollCueText}>Scroll to explore gameplay</span>
+        <span className={styles.scrollCueArrow} aria-hidden="true">↓</span>
       </div>
     </section>
   );

@@ -144,6 +144,46 @@
   transform-origin: right center;
 }
 
+.scrollCue {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.scrollCueText {
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.scrollCueArrow {
+  display: block;
+  font-size: 2rem;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 0 20px rgba(180, 120, 255, 0.5);
+  animation: scrollCueBreathe 2s ease-in-out infinite;
+}
+
+@keyframes scrollCueBreathe {
+  0%,
+  100% {
+    opacity: 0.85;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(8px);
+  }
+}
+
 .heroTag {
   font-size: clamp(1rem, 2.5vw, 1.4rem);
   font-weight: 600;

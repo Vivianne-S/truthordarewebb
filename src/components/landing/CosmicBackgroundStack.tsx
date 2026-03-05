@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import { useBgParallax } from "@/hooks/useParallax";
 import styles from "./CosmicBackgroundStack.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -21,6 +22,9 @@ type Props = {
 
   /** optional: fade duration */
   duration?: number;
+
+  /** Hero ref for parallax (mouse + scroll) */
+  heroRef?: React.RefObject<HTMLElement | null>;
 };
 
 export default function CosmicBackgroundStack({
@@ -30,6 +34,7 @@ export default function CosmicBackgroundStack({
   nextLayer2 = "/cosmic-4.png",
   triggerId,
   duration = 1.2,
+  heroRef,
 }: Props) {
   const startWrap = useRef<HTMLDivElement>(null);
   const nextWrap = useRef<HTMLDivElement>(null);
