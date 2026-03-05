@@ -15,6 +15,7 @@ export default function Hero() {
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const leftTagsRef = useRef<HTMLDivElement>(null);
   const rightTagsRef = useRef<HTMLDivElement>(null);
+  const lightSweepRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -36,6 +37,18 @@ export default function Hero() {
         : [];
 
       if (leftTags.length === 0 && rightTags.length === 0) return;
+
+      // Light sweep över titeln var 6–10 sekund (lens flare / ljusreflektion)
+      if (lightSweepRef.current) {
+        gsap.set(lightSweepRef.current, { x: "-100%" });
+        gsap.to(lightSweepRef.current, {
+          x: "100%",
+          duration: 1.2,
+          ease: "power2.inOut",
+          repeat: -1,
+          repeatDelay: 3,
+        });
+      }
 
       const setupScrollTrigger = () => {
         leftTags.forEach((el) => {
@@ -112,6 +125,7 @@ export default function Hero() {
           <span className={styles.titleWord}>or</span>
           <span className={styles.titleWord}>Dare</span>
         </h1>
+        <div ref={lightSweepRef} className={styles.lightSweep} aria-hidden="true" />
       </div>
 
       <p ref={subtitleRef} className={styles.subtitle}>

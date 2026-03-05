@@ -13,6 +13,26 @@
 .titleWrap {
   position: relative;
   margin: 0;
+  overflow: hidden;
+}
+
+.lightSweep {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.06) 25%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.06) 75%,
+    transparent 100%
+  );
+  transform-origin: left center;
+  pointer-events: none;
+  z-index: 3;
 }
 
 .titleGlow {
