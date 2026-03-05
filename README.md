@@ -24,9 +24,8 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 - **GSAP** – animationer (tweens, timelines). Redan installerat.
 - **GSAP ScrollTrigger** – scroll‑drivna animationer, pin, scrub. Ingår i GSAP (`gsap/ScrollTrigger`), inget extra paket.
-- **Lenis** (valfritt) – mjukare scroll. Finns i projektet; kan kopplas till ScrollTrigger för ännu smidigare känsla.
+- **Lenis** – mjukare scroll kan kopplas till ScrollTrigger.
 
-Det räcker alltså med **GSAP** för cinematic‑sidor; ScrollTrigger är inbyggt. Framer Motion eller React Spring kan användas istället, men GSAP + ScrollTrigger är vanligast för scroll‑jacking och komplexa scroll‑scener.
 
 ## Learn More
 
