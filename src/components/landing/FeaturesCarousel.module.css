@@ -42,7 +42,7 @@
   height: 100vh;
   width: max-content;
   will-change: transform;
-  gap: 1.5rem;
+  gap: 3rem;
 
   padding-left: max(1rem, calc(50vw - 220px));
   padding-right: max(1rem, calc(50vw - 220px));
@@ -94,12 +94,36 @@
   transform: scale(1.18);
   z-index: 10;
 }
-.featureCardSlotActive::before{
+
+.featureCardSlotActive::before {
   opacity: 1;
+  background: radial-gradient(
+    ellipse 85% 75% at 35% 35%,
+    rgba(180, 80, 255, 0.65) 0%,
+    rgba(220, 60, 255, 0.45) 25%,
+    rgba(255, 90, 200, 0.3) 50%,
+    rgba(255, 100, 180, 0.15) 75%,
+    transparent 100%
+  );
   animation: neonPulse 1.6s ease-in-out infinite;
 }
 
-@keyframes neonPulse{
+.featureCardSlotBump.featureCardSlotActive::before {
+  animation: glowPuff 0.35s ease-out;
+}
+
+@keyframes glowPuff {
+  0% {
+    transform: translate(-50%, -50%) scale(1.35);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes neonPulse {
   0%,100%{ transform: translate(-50%,-50%) scale(0.98); opacity: 0.75; }
   50%{ transform: translate(-50%,-50%) scale(1.04); opacity: 1; }
 }

@@ -83,9 +83,13 @@ export default function FeaturesCarousel() {
         return r.left + r.width / 2;
       };
 
+      let prevClosestIndex = -1;
+
       const updateSpotlight = () => {
         const cx = centerX();
-        cards.forEach((c) => c.classList.remove(styles.featureCardSlotActive));
+        cards.forEach((c) => {
+          c.classList.remove(styles.featureCardSlotActive, styles.featureCardSlotBump);
+        });
 
         let closestIndex = 0;
         let closestDistance = Infinity;
@@ -102,7 +106,7 @@ export default function FeaturesCarousel() {
 
           const norm = Math.min(1, distance / 420);
 
-          const scale = i === closestIndex ? 1.12 : 0.92;
+          const scale = i === closestIndex ? 1.18 : 0.78;
           const opacity = 0.55 + 0.45 * (1 - norm);
           const rotateY = ((cardCenter - cx) / 520) * -8;
 
@@ -111,7 +115,27 @@ export default function FeaturesCarousel() {
           setters[i].rotateY(rotateY);
         }
 
-        cards[closestIndex]?.classList.add(styles.featureCardSlotActive);
+        const activeCard = cards[closestIndex];
+        activeCard?.classList.add(styles.featureCardSlotActive);
+
+        // Speed-ramp bump när man snappar: scale 1.22 → 1.18 + glow puff
+        if (closestIndex !== prevClosestIndex && prevClosestIndex >= 0) {
+          activeCard?.classList.add(styles.featureCardSlotBump);
+          gsap.fromTo(
+            activeCard,
+            { scale: 1.22 },
+            {
+              scale: 1.18,
+              duration: 0.3,
+              ease: "power2.out",
+              overwrite: true,
+            }
+          );
+          setTimeout(() => {
+            activeCard?.classList.remove(styles.featureCardSlotBump);
+          }, 350);
+        }
+        prevClosestIndex = closestIndex;
         updateActiveIndex(closestIndex);
       };
 
