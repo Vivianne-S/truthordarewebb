@@ -9,30 +9,134 @@
   padding: 0 24px;
   background: transparent;
 }
+
 .ctaContent {
   position: relative;
   z-index: 2;
-  max-width: 720px;
-  opacity: 0.92;
+  max-width: 560px;
+  width: 100%;
 
-  /* lite glass-feel så texten poppar men bakgrunden syns */
-  padding: 28px 26px;
-  border-radius: 24px;
-  background: rgba(8, 3, 16, 0.22);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(14px);
-  box-shadow: 0 22px 90px rgba(0, 0, 0, 0.35);
+  padding: 40px 36px 44px;
+  border-radius: 28px;
+  background: rgba(12, 6, 24, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.25),
+    0 0 1px rgba(255, 255, 255, 0.1) inset;
 }
 
 .ctaTitle {
   margin: 0;
-  font-size: clamp(28px, 4vw, 48px);
+  font-family: var(--font-bebas), "Impact", sans-serif;
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: #fff;
 }
 
 .ctaSubtitle {
-  margin-top: 12px;
-  opacity: 0.85;
+  margin: 10px 0 0;
+  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+  font-weight: 400;
+  letter-spacing: 0.02em;
   line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.ctaButtons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem 1.75rem;
+  margin-top: 2.25rem;
+}
+
+.ctaOr {
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.ctaStoreButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px 12px 16px;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ctaStoreIcon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ctaStoreText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.ctaStoreLabel {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  opacity: 0.95;
+}
+
+.ctaStoreName {
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+.ctaAppStore {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 0 24px rgba(140, 80, 255, 0.25),
+    0 0 48px rgba(100, 50, 200, 0.12),
+    0 2px 8px rgba(0, 0, 0, 0.3),
+    0 1px 0 rgba(255, 255, 255, 0.08) inset;
+}
+
+.ctaAppStore:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 32px rgba(140, 80, 255, 0.35),
+    0 0 56px rgba(100, 50, 200, 0.18),
+    0 4px 12px rgba(0, 0, 0, 0.35),
+    0 1px 0 rgba(255, 255, 255, 0.12) inset;
+}
+
+.ctaGooglePlay {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 0 24px rgba(100, 200, 255, 0.2),
+    0 0 48px rgba(60, 140, 255, 0.1),
+    0 2px 8px rgba(0, 0, 0, 0.3),
+    0 1px 0 rgba(255, 255, 255, 0.08) inset;
+}
+
+.ctaGooglePlay:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 32px rgba(100, 200, 255, 0.3),
+    0 0 56px rgba(60, 140, 255, 0.15),
+    0 4px 12px rgba(0, 0, 0, 0.35),
+    0 1px 0 rgba(255, 255, 255, 0.12) inset;
 }
 /* Cinematic fade IN at top of CTA section */
 .ctaSection::before{
