@@ -9,9 +9,22 @@ gsap.registerPlugin(ScrollTrigger);
 
 export const CTA_TRIGGER_ID = "bg-switch";
 
+const FLOATING_AVATARS = [
+  { size: 72, x: "16%", y: "22%", src: "/avatar_monkey.png", from: "left" as const },
+  { size: 64, x: "84%", y: "24%", src: "/avatar_pinguin.png", from: "right" as const },
+  { size: 68, x: "14%", y: "80%", src: "/avatar_alien.png", from: "left" as const },
+  { size: 76, x: "86%", y: "76%", src: "/avatar_guy5.png", from: "right" as const },
+  { size: 58, x: "26%", y: "18%", src: "/avatar_guy6.png", from: "left" as const },
+  { size: 66, x: "10%", y: "48%", src: "/avatar_guy7.png", from: "left" as const },
+  { size: 62, x: "90%", y: "50%", src: "/avatar11.png", from: "right" as const },
+  { size: 70, x: "68%", y: "86%", src: "/avatar12.png", from: "right" as const },
+  { size: 68, x: "20%", y: "84%", src: "/avatar13.png", from: "left" as const },
+];
+
 export default function CTASection() {
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const avatarsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     if (!sectionRef.current || !contentRef.current) return;
@@ -37,6 +50,28 @@ export default function CTASection() {
           scrub: 1.2,
         },
       });
+
+      // Avatars kommer in en och en från vänster och höger
+      const avatars = avatarsRef.current.filter(Boolean) as HTMLDivElement[];
+      if (avatars.length > 0) {
+        avatars.forEach((el, i) => {
+          const fromX = FLOATING_AVATARS[i].from === "left" ? -120 : 120;
+          gsap.set(el, { x: fromX, opacity: 0 });
+        });
+
+        gsap.to(avatars, {
+          x: 0,
+          opacity: 1,
+          duration: 1.2,
+          stagger: 0.25,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 75%",
+            toggleActions: "play reverse play reverse",
+          },
+        });
+      }
     }, sectionRef);
 
     return () => ctx.revert();
@@ -48,11 +83,70 @@ export default function CTASection() {
       id={CTA_TRIGGER_ID}
       className={styles.ctaSection}
     >
+      <div className={styles.ctaAvatars} aria-hidden="true">
+          {FLOATING_AVATARS.map((avatar, i) => (
+            <div
+              key={i}
+              ref={(el) => { avatarsRef.current[i] = el; }}
+              className={styles.ctaAvatarWrap}
+              style={{
+                left: avatar.x,
+                top: avatar.y,
+              }}
+            >
+              <div
+                className={styles.ctaAvatar}
+                style={{ width: avatar.size, height: avatar.size }}
+              >
+                <img
+                  src={avatar.src}
+                  alt=""
+                  className={styles.ctaAvatarImg}
+                />
+              </div>
+            </div>
+          ))}
+      </div>
       <div ref={contentRef} className={styles.ctaContent}>
+        <div className={styles.ctaContentInner}>
         <h2 className={styles.ctaTitle}>Ready to play?</h2>
         <p className={styles.ctaSubtitle}>
           Download and start a game in seconds.
         </p>
+        <div className={styles.ctaButtons}>
+          <a
+            href="#"
+            className={`${styles.ctaStoreButton} ${styles.ctaAppStore}`}
+            aria-label="Download on the App Store"
+          >
+            <span className={styles.ctaStoreIcon} aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+              </svg>
+            </span>
+            <span className={styles.ctaStoreText}>
+              <span className={styles.ctaStoreLabel}>Download on the</span>
+              <span className={styles.ctaStoreName}>App Store</span>
+            </span>
+          </a>
+          <span className={styles.ctaOr}>or</span>
+          <a
+            href="#"
+            className={`${styles.ctaStoreButton} ${styles.ctaGooglePlay}`}
+            aria-label="Get it on Google Play"
+          >
+            <span className={styles.ctaStoreIcon} aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </span>
+            <span className={styles.ctaStoreText}>
+              <span className={styles.ctaStoreLabel}>Get it on</span>
+              <span className={styles.ctaStoreName}>Google Play</span>
+            </span>
+          </a>
+        </div>
+        </div>
       </div>
     </section>
   );

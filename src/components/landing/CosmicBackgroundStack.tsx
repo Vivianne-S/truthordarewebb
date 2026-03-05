@@ -49,7 +49,25 @@ export default function CosmicBackgroundStack({
     gsap.set(startWrap.current, { autoAlpha: 1 });
     gsap.set(nextWrap.current, { autoAlpha: 0 });
 
-    // float animations (start – hero background)
+    // Zoom in på bakgrunden vid load (3.5s)
+    const zoomDuration = 3.5;
+    const zoomEase = "power2.out";
+    if (startSphere.current) {
+      gsap.fromTo(
+        startSphere.current,
+        { scale: 0.88 },
+        { scale: 1, duration: zoomDuration, ease: zoomEase }
+      );
+    }
+    if (startSwirl.current) {
+      gsap.fromTo(
+        startSwirl.current,
+        { scale: 0.9 },
+        { scale: 1, duration: zoomDuration, ease: zoomEase }
+      );
+    }
+
+    // float animations (start – hero background) – börjar efter zoom
     if (startSphere.current) {
       gsap.to(startSphere.current, {
         scale: 1.1,
@@ -58,6 +76,7 @@ export default function CosmicBackgroundStack({
         ease: "sine.inOut",
         repeat: -1,
         yoyo: true,
+        delay: zoomDuration,
       });
     }
 
@@ -69,6 +88,7 @@ export default function CosmicBackgroundStack({
         ease: "sine.inOut",
         repeat: -1,
         yoyo: true,
+        delay: zoomDuration,
       });
     }
 
