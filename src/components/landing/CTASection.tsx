@@ -7,8 +7,10 @@ import styles from "./CTASection.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// ID used by CosmicBackgroundStack to trigger background crossfade
 export const CTA_TRIGGER_ID = "bg-switch";
 
+// Avatar positions and animation direction for the CTA section
 const FLOATING_AVATARS = [
   { size: 72, x: "16%", y: "22%", src: "/avatar_monkey.png", from: "left" as const },
   { size: 64, x: "84%", y: "24%", src: "/avatar_pinguin.png", from: "right" as const },
@@ -21,6 +23,7 @@ const FLOATING_AVATARS = [
   { size: 68, x: "20%", y: "84%", src: "/avatar13.png", from: "left" as const },
 ];
 
+// CTA section: download buttons, floating avatars, and cinematic entrance
 export default function CTASection() {
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -30,7 +33,7 @@ export default function CTASection() {
     if (!sectionRef.current || !contentRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Set initial cinematic state (without needing CSS opacity:0)
+      // Set initial state for cinematic reveal (blur + slide up)
       gsap.set(contentRef.current, {
         opacity: 0,
         y: 70,
@@ -51,7 +54,7 @@ export default function CTASection() {
         },
       });
 
-      // Avatars kommer in en och en från vänster och höger
+      // Avatars slide in one by one from left or right based on config
       const avatars = avatarsRef.current.filter(Boolean) as HTMLDivElement[];
       if (avatars.length > 0) {
         avatars.forEach((el, i) => {

@@ -7,6 +7,7 @@ import styles from "./CosmicBackgroundStack.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Props for the layered cosmic background
 type Props = {
   /** Start background (hero + cards) */
   startLayer1?: string;
@@ -26,6 +27,7 @@ type Props = {
   heroRef?: React.RefObject<HTMLElement | null>;
 };
 
+// Layered cosmic background: two stacks (start/next) that crossfade on scroll
 export default function CosmicBackgroundStack({
   startLayer1 = "/cosmic-1.png",
   startLayer2 = "/cosmic-3.png",
@@ -45,11 +47,11 @@ export default function CosmicBackgroundStack({
   const nextSwirl = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
-    // initial visibility
+    // Set initial visibility: start visible, next hidden
     gsap.set(startWrap.current, { autoAlpha: 1 });
     gsap.set(nextWrap.current, { autoAlpha: 0 });
 
-    // Zoom in på bakgrunden vid load (3.5s)
+    // Zoom-in animation on load (3.5s)
     const zoomDuration = 3.5;
     const zoomEase = "power2.out";
     if (startSphere.current) {
@@ -67,7 +69,7 @@ export default function CosmicBackgroundStack({
       );
     }
 
-    // float animations (start – hero background) – börjar efter zoom
+    // Float animations for start layers (hero background) – begin after zoom
     if (startSphere.current) {
       gsap.to(startSphere.current, {
         scale: 1.1,
@@ -92,7 +94,7 @@ export default function CosmicBackgroundStack({
       });
     }
 
-    // float animations (next)
+    // Float animations for next layers (CTA background)
     if (nextSphere.current) {
       gsap.to(nextSphere.current, {
         scale: 1.1,
@@ -115,7 +117,7 @@ export default function CosmicBackgroundStack({
       });
     }
 
-    // cinematic crossfade on scroll
+    // Crossfade between start and next backgrounds based on scroll position
     const triggerEl = document.getElementById(triggerId);
     if (!triggerEl) return;
 
@@ -125,7 +127,7 @@ export default function CosmicBackgroundStack({
       end: "top 25%",
       scrub: true,
       onUpdate: (self) => {
-        const p = self.progress; // 0..1
+        const p = self.progress; // 0..1 as trigger moves through start→end
         gsap.to(startWrap.current, { autoAlpha: 1 - p, duration: 0.1, overwrite: true });
         gsap.to(nextWrap.current, { autoAlpha: p, duration: 0.1, overwrite: true });
       },
@@ -146,13 +148,13 @@ export default function CosmicBackgroundStack({
 
   return (
     <div className={styles.bgWrap} aria-hidden="true">
-      {/* START BG (hero) – sphere + swirl i bakgrunden */}
+      {/* Start background: sphere + swirl for hero section */}
       <div ref={startWrap} className={styles.bgStackLayer}>
         <img ref={startSphere} className={styles.bgLayer1} src={startLayer1} alt="" />
         <img ref={startSwirl} className={styles.bgLayer2} src={startLayer2} alt="" />
       </div>
 
-      {/* NEXT BG */}
+      {/* Next background: shown after CTA trigger enters view */}
       <div ref={nextWrap} className={styles.bgStackLayer}>
         <img ref={nextSphere} className={styles.bgLayer1} src={nextLayer1} alt="" />
         <img ref={nextSwirl} className={styles.bgLayer2} src={nextLayer2} alt="" />
