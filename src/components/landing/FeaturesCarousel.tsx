@@ -106,9 +106,9 @@ export default function FeaturesCarousel() {
 
           const norm = Math.min(1, distance / 420);
 
-          const scale = i === closestIndex ? 1.18 : 0.78;
+          const scale = i === closestIndex ? 1.12 : 0.58;
           const opacity = 0.55 + 0.45 * (1 - norm);
-          const rotateY = ((cardCenter - cx) / 520) * -8;
+          const rotateY = ((cardCenter - cx) / 520) * -4;
 
           setters[i].scale(scale);
           setters[i].opacity(opacity);
@@ -123,9 +123,9 @@ export default function FeaturesCarousel() {
           activeCard?.classList.add(styles.featureCardSlotBump);
           gsap.fromTo(
             activeCard,
-            { scale: 1.22 },
+            { scale: 1.16 },
             {
-              scale: 1.18,
+              scale: 1.12,
               duration: 0.3,
               ease: "power2.out",
               overwrite: true,

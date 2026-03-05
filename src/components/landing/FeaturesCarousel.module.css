@@ -42,10 +42,10 @@
   height: 100vh;
   width: max-content;
   will-change: transform;
-  gap: 3rem;
+  gap: 4rem;
 
-  padding-left: max(1rem, calc(50vw - 220px));
-  padding-right: max(1rem, calc(50vw - 220px));
+  padding-left: max(1rem, calc(50vw - 190px));
+  padding-right: max(1rem, calc(50vw - 190px));
 
   transform-style: preserve-3d;
   backface-visibility: hidden;
@@ -54,7 +54,7 @@
 .featureCardSlot {
   position: relative;
   flex-shrink: 0;
-  width: min(440px, 58vw);
+  width: min(380px, 50vw);
   height: 100vh;
 
   display: flex;
@@ -64,8 +64,6 @@
   transform-style: preserve-3d;
   will-change: transform, opacity;
   backface-visibility: hidden;
-
-  transition: transform 0.35s ease;
 }
 
 .featureCardSlot::before {
@@ -74,8 +72,8 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: min(520px, 92vw);
-  height: 72vh;
+  width: min(450px, 88vw);
+  height: 70vh;
   border-radius: 999px;
   opacity: 0;
   filter: blur(26px);
@@ -91,7 +89,7 @@
 }
 
 .featureCardSlotActive {
-  transform: scale(1.18);
+  transform: scale(1.12);
   z-index: 10;
 }
 
