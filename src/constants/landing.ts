@@ -1,3 +1,4 @@
+// Feature items shown in the carousel: label + screenshot for each app screen
 export const FEATURES = [
   { label: "Truth or Dare", image: "/logo.png" },
   { label: "Introduction", image: "/intro.png" },

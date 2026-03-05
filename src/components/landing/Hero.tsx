@@ -7,11 +7,15 @@ import styles from "./Hero.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Tag phrases shown on the left side of the hero
 const TAGS_LEFT = ["Play with friends", "Challenge yourself", "No limits"];
+// Tag phrases shown on the right side of the hero
 const TAGS_RIGHT = ["Have fun", "Get the party started", "Make memories"];
 
+// Title words split for letter-by-letter animation
 const TITLE_WORDS = ["Truth", "or", "Dare"];
 
+// Runs all hero entrance animations: letters, tagline, subtitle, tags, light sweep, scroll cue
 function runHeroAnimations(
   letters: Element[],
   tagline: HTMLParagraphElement | null,
@@ -21,8 +25,10 @@ function runHeroAnimations(
   lightSweep: HTMLDivElement | null,
   scrollCue: HTMLDivElement | null
 ) {
+  // Stop any running tweens before replaying
   gsap.killTweensOf([letters, tagline, subtitle, leftTags, rightTags, lightSweep, scrollCue].flat().filter(Boolean));
 
+  // Staggered fade-in for each letter of the title
   if (letters.length > 0) {
     gsap.set(letters, { opacity: 0 });
     gsap.to(letters, {
@@ -34,6 +40,7 @@ function runHeroAnimations(
     });
   }
 
+  // Tagline slide-up and fade-in
   if (tagline) {
     gsap.set(tagline, { opacity: 0, y: 14 });
     gsap.to(tagline, {
@@ -45,6 +52,7 @@ function runHeroAnimations(
     });
   }
 
+  // Subtitle slide-up and fade-in
   if (subtitle) {
     gsap.set(subtitle, { opacity: 0, y: 12 });
     gsap.to(subtitle, {
@@ -56,6 +64,7 @@ function runHeroAnimations(
     });
   }
 
+  // Horizontal light sweep across the title (loops indefinitely)
   if (lightSweep) {
     gsap.set(lightSweep, { x: "-100%" });
     gsap.to(lightSweep, {
@@ -68,6 +77,7 @@ function runHeroAnimations(
     });
   }
 
+  // Tags slide in from left and right with staggered timing
   gsap.set(leftTags, { x: -200, opacity: 0, scale: 1.5 });
   gsap.set(rightTags, { x: 200, opacity: 0, scale: 1.5 });
 
@@ -82,6 +92,7 @@ function runHeroAnimations(
     }
   }
 
+  // Scroll cue fades in last to prompt user to scroll
   if (scrollCue) {
     gsap.set(scrollCue, { opacity: 0 });
     gsap.to(scrollCue, {
@@ -93,6 +104,7 @@ function runHeroAnimations(
   }
 }
 
+// Hero section: animated title, tagline, tags, and scroll cue
 export default function Hero() {
   const heroRef = useRef<HTMLElement>(null);
   const leftTagsRef = useRef<HTMLDivElement>(null);
@@ -107,6 +119,7 @@ export default function Hero() {
     const hero = heroRef.current;
     if (!hero) return;
 
+    // Collect refs for animation targets
     const letters = titleLettersRef.current.filter((el): el is HTMLSpanElement => el != null);
     const leftTags = leftTagsRef.current?.children ? Array.from(leftTagsRef.current.children) : [];
     const rightTags = rightTagsRef.current?.children ? Array.from(rightTagsRef.current.children) : [];
@@ -124,6 +137,7 @@ export default function Hero() {
 
     play();
 
+    // Replay animations when user scrolls back up to the hero
     const st = ScrollTrigger.create({
       trigger: hero,
       start: "top bottom",

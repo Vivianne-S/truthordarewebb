@@ -10,12 +10,14 @@ import styles from "./FeaturesCarousel.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Scroll-pinned carousel: cards move horizontally with scroll, spotlight effect on center card
 export default function FeaturesCarousel() {
   const featuresRef = useRef<HTMLElement>(null);
   const featuresRowRef = useRef<HTMLDivElement>(null);
   const featureCardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
 
+  // Callback to sync active index for ProgressDots
   const updateActiveIndex = (index: number) => {
     setActiveIndex(index);
   };
@@ -28,7 +30,7 @@ export default function FeaturesCarousel() {
 
       if (!section || !row || cards.length === 0) return;
 
-      // Fade in section on approach (before pin)
+      // Fade in the section as user scrolls toward it (before it gets pinned)
       gsap.fromTo(
         section,
         { opacity: 0, y: 60 },
@@ -45,12 +47,14 @@ export default function FeaturesCarousel() {
         }
       );
 
+      // Maximum horizontal offset (negative) for the row when fully scrolled
       const getMaxX = () => {
         const sectionWidth = section.clientWidth;
         const rowWidth = row.scrollWidth;
         return Math.min(0, sectionWidth - rowWidth);
       };
 
+      // Enable 3D transforms for smooth scale/rotate animations
       gsap.set(row, { x: 0, force3D: true });
       cards.forEach((c) =>
         gsap.set(c, {
@@ -60,6 +64,7 @@ export default function FeaturesCarousel() {
       );
       gsap.set(cards, { transformStyle: "preserve-3d", force3D: true });
 
+      // QuickTo setters for smooth, interruptible card updates on scroll
       const setters = cards.map((card) => ({
         scale: gsap.quickTo(card, "scale", {
           duration: 0.18,
@@ -78,6 +83,7 @@ export default function FeaturesCarousel() {
         }),
       }));
 
+      // Get the horizontal center of the section viewport
       const centerX = () => {
         const r = section.getBoundingClientRect();
         return r.left + r.width / 2;
@@ -85,6 +91,7 @@ export default function FeaturesCarousel() {
 
       let prevClosestIndex = -1;
 
+      // Update scale, opacity, rotateY for each card based on distance from center
       const updateSpotlight = () => {
         const cx = centerX();
         cards.forEach((c) => {
@@ -118,7 +125,7 @@ export default function FeaturesCarousel() {
         const activeCard = cards[closestIndex];
         activeCard?.classList.add(styles.featureCardSlotActive);
 
-        // Speed-ramp bump när man snappar: scale 1.22 → 1.18 + glow puff
+        // Bump animation when snapping to a new card: scale pulse + glow
         if (closestIndex !== prevClosestIndex && prevClosestIndex >= 0) {
           activeCard?.classList.add(styles.featureCardSlotBump);
           gsap.fromTo(
@@ -139,6 +146,7 @@ export default function FeaturesCarousel() {
         updateActiveIndex(closestIndex);
       };
 
+      // Compute snap positions so each card centers when scrolled
       const getSnapPoints = () => {
         const maxX = getMaxX();
         const sectionW = section.clientWidth;
@@ -161,8 +169,10 @@ export default function FeaturesCarousel() {
       };
 
       let snapPoints = getSnapPoints();
+      // Track last snapped index to enforce one-step-at-a-time snapping
       let lastSnapIndex = 0;
 
+      // ScrollTrigger: pin section, scrub row x, snap to cards, update spotlight
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
@@ -181,7 +191,7 @@ export default function FeaturesCarousel() {
               const nearest = gsap.utils.snap(snapPoints.points, x);
               const nearestIndex = snapPoints.points.indexOf(nearest);
 
-              // Gå strikt 1→6 neråt, 6→1 uppåt – ett steg i taget
+              // Enforce one-step-at-a-time: only move 1 index per scroll direction
               const step = Math.sign(nearestIndex - lastSnapIndex);
               const clampedIndex = Math.max(
                 0,
@@ -202,6 +212,7 @@ export default function FeaturesCarousel() {
           },
 
           onUpdate: updateSpotlight,
+          // Recompute snap points on resize/load
           onRefresh: () => {
             gsap.set(row, { x: 0 });
             snapPoints = getSnapPoints();
@@ -211,6 +222,7 @@ export default function FeaturesCarousel() {
         },
       });
 
+      // Animate row from 0 to maxX as scroll progress goes 0→1
       tl.to(row, {
         x: () => getMaxX(),
         ease: "none",
@@ -219,6 +231,7 @@ export default function FeaturesCarousel() {
 
       updateSpotlight();
 
+      // Refresh ScrollTrigger on load/resize so pin/snap recalculate
       const refresh = () => ScrollTrigger.refresh();
       window.addEventListener("load", refresh);
       window.addEventListener("resize", refresh);
