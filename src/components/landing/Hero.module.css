@@ -6,13 +6,33 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 18vh 1.5rem 2rem;
+  padding: 12vh 1.5rem 2rem;
   text-align: center;
 }
 
 .titleWrap {
   position: relative;
   margin: 0;
+  overflow: hidden;
+}
+
+.lightSweep {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.06) 25%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.06) 75%,
+    transparent 100%
+  );
+  transform-origin: left center;
+  pointer-events: none;
+  z-index: 3;
 }
 
 .titleGlow {
@@ -75,6 +95,10 @@
   display: inline-block;
 }
 
+.titleLetter {
+  display: inline-block;
+}
+
 .subtitle {
   font-size: clamp(1.1rem, 2.8vw, 1.45rem);
   font-weight: 400;
@@ -92,10 +116,10 @@
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 18vh;
+  top: 40%;
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: flex-start;
   padding: 0 2rem;
   pointer-events: none;
 }
@@ -122,6 +146,47 @@
 
 .heroTagsRight .heroTag {
   transform-origin: right center;
+}
+
+.scrollCue {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+}
+
+.scrollCueText {
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.scrollCueArrow {
+  display: block;
+  font-size: 2rem;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 0 20px rgba(180, 120, 255, 0.5);
+  animation: scrollCueBreathe 2s ease-in-out infinite;
+}
+
+@keyframes scrollCueBreathe {
+  0%,
+  100% {
+    opacity: 0.85;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(8px);
+  }
 }
 
 .heroTag {

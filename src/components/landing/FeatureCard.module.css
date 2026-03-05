@@ -12,7 +12,7 @@
 }
 
 .featureCardImageWrap {
-  width: min(400px, 90vw);
+  width: min(340px, 88vw);
   aspect-ratio: 9/19;
   border-radius: 2.25rem;
   overflow: hidden;
