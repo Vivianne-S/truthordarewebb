@@ -6,7 +6,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 18vh 1.5rem 2rem;
+  padding: 12vh 1.5rem 2rem;
   text-align: center;
 }
 
@@ -92,10 +92,10 @@
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 18vh;
+  top: 40%;
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: flex-start;
   padding: 0 2rem;
   pointer-events: none;
 }

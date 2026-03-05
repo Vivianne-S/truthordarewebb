@@ -37,43 +37,65 @@ export default function Hero() {
 
       if (leftTags.length === 0 && rightTags.length === 0) return;
 
-      leftTags.forEach((el) => {
-        gsap.fromTo(
-          el,
-          { x: 0, opacity: 0.9, scale: 1 },
-          {
-            x: -200,
-            opacity: 0,
-            scale: 1.5,
-            ease: "power3.in",
-            scrollTrigger: {
-              trigger: heroRef.current,
-              start: "top top",
-              end: "top bottom",
-              scrub: 1.5,
-            },
-          }
-        );
-      });
+      const setupScrollTrigger = () => {
+        leftTags.forEach((el) => {
+          gsap.fromTo(
+            el,
+            { x: 0, opacity: 0.9, scale: 1 },
+            {
+              x: -200,
+              opacity: 0,
+              scale: 1.5,
+              ease: "power3.in",
+              scrollTrigger: {
+                trigger: heroRef.current,
+                start: "top top",
+                end: "top bottom",
+                scrub: 2.5,
+              },
+            }
+          );
+        });
 
-      rightTags.forEach((el) => {
-        gsap.fromTo(
-          el,
-          { x: 0, opacity: 0.9, scale: 1 },
-          {
-            x: 200,
-            opacity: 0,
-            scale: 1.5,
-            ease: "power3.in",
-            scrollTrigger: {
-              trigger: heroRef.current,
-              start: "top top",
-              end: "top bottom",
-              scrub: 1.5,
-            },
-          }
-        );
+        rightTags.forEach((el) => {
+          gsap.fromTo(
+            el,
+            { x: 0, opacity: 0.9, scale: 1 },
+            {
+              x: 200,
+              opacity: 0,
+              scale: 1.5,
+              ease: "power3.in",
+              scrollTrigger: {
+                trigger: heroRef.current,
+                start: "top top",
+                end: "top bottom",
+                scrub: 2.5,
+              },
+            }
+          );
+        });
+      };
+
+      // Load animation: kom in rad för rad, samma sätt som dom försvinner (från isär till ihop)
+      gsap.set(leftTags, { x: -200, opacity: 0, scale: 1.5 });
+      gsap.set(rightTags, { x: 200, opacity: 0, scale: 1.5 });
+
+      const tl = gsap.timeline({
+        onComplete: setupScrollTrigger,
       });
+      const rowDelay = 0.9;
+      for (let i = 0; i < Math.max(leftTags.length, rightTags.length); i++) {
+        const leftEl = leftTags[i];
+        const rightEl = rightTags[i];
+        const startTime = 0.6 + i * rowDelay;
+        if (leftEl) {
+          tl.to(leftEl, { x: 0, opacity: 0.9, scale: 1, duration: 1.4, ease: "power3.out" }, startTime);
+        }
+        if (rightEl) {
+          tl.to(rightEl, { x: 0, opacity: 0.9, scale: 1, duration: 1.4, ease: "power3.out" }, startTime);
+        }
+      }
     }, heroRef);
 
     return () => ctx.revert();
