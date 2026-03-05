@@ -167,7 +167,7 @@ export default function FeaturesCarousel() {
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: () => `+=${Math.abs(getMaxX()) + 900}`,
+          end: () => `+=${Math.max(Math.abs(getMaxX()) * 1.8 + 1500, 5000)}`,
           pin: true,
           scrub: 0.9,
           anticipatePin: 1,
@@ -220,11 +220,15 @@ export default function FeaturesCarousel() {
 
       const refresh = () => ScrollTrigger.refresh();
       window.addEventListener("load", refresh);
+      window.addEventListener("resize", refresh);
       const t = window.setTimeout(refresh, 250);
+      const t2 = window.setTimeout(refresh, 800);
 
       return () => {
         window.removeEventListener("load", refresh);
+        window.removeEventListener("resize", refresh);
         window.clearTimeout(t);
+        window.clearTimeout(t2);
       };
     });
 

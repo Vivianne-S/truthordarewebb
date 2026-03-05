@@ -9,9 +9,22 @@ gsap.registerPlugin(ScrollTrigger);
 
 export const CTA_TRIGGER_ID = "bg-switch";
 
+const FLOATING_AVATARS = [
+  { size: 72, x: "16%", y: "22%", src: "/avatar_monkey.png", from: "left" as const },
+  { size: 64, x: "84%", y: "24%", src: "/avatar_pinguin.png", from: "right" as const },
+  { size: 68, x: "14%", y: "80%", src: "/avatar_alien.png", from: "left" as const },
+  { size: 76, x: "86%", y: "76%", src: "/avatar_guy5.png", from: "right" as const },
+  { size: 58, x: "26%", y: "18%", src: "/avatar_guy6.png", from: "left" as const },
+  { size: 66, x: "10%", y: "48%", src: "/avatar_guy7.png", from: "left" as const },
+  { size: 62, x: "90%", y: "50%", src: "/avatar11.png", from: "right" as const },
+  { size: 70, x: "68%", y: "86%", src: "/avatar12.png", from: "right" as const },
+  { size: 68, x: "20%", y: "84%", src: "/avatar13.png", from: "left" as const },
+];
+
 export default function CTASection() {
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const avatarsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     if (!sectionRef.current || !contentRef.current) return;
@@ -37,6 +50,28 @@ export default function CTASection() {
           scrub: 1.2,
         },
       });
+
+      // Avatars kommer in en och en från vänster och höger
+      const avatars = avatarsRef.current.filter(Boolean) as HTMLDivElement[];
+      if (avatars.length > 0) {
+        avatars.forEach((el, i) => {
+          const fromX = FLOATING_AVATARS[i].from === "left" ? -120 : 120;
+          gsap.set(el, { x: fromX, opacity: 0 });
+        });
+
+        gsap.to(avatars, {
+          x: 0,
+          opacity: 1,
+          duration: 1.2,
+          stagger: 0.25,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 75%",
+            toggleActions: "play reverse play reverse",
+          },
+        });
+      }
     }, sectionRef);
 
     return () => ctx.revert();
@@ -48,7 +83,32 @@ export default function CTASection() {
       id={CTA_TRIGGER_ID}
       className={styles.ctaSection}
     >
+      <div className={styles.ctaAvatars} aria-hidden="true">
+          {FLOATING_AVATARS.map((avatar, i) => (
+            <div
+              key={i}
+              ref={(el) => { avatarsRef.current[i] = el; }}
+              className={styles.ctaAvatarWrap}
+              style={{
+                left: avatar.x,
+                top: avatar.y,
+              }}
+            >
+              <div
+                className={styles.ctaAvatar}
+                style={{ width: avatar.size, height: avatar.size }}
+              >
+                <img
+                  src={avatar.src}
+                  alt=""
+                  className={styles.ctaAvatarImg}
+                />
+              </div>
+            </div>
+          ))}
+      </div>
       <div ref={contentRef} className={styles.ctaContent}>
+        <div className={styles.ctaContentInner}>
         <h2 className={styles.ctaTitle}>Ready to play?</h2>
         <p className={styles.ctaSubtitle}>
           Download and start a game in seconds.
@@ -85,6 +145,7 @@ export default function CTASection() {
               <span className={styles.ctaStoreName}>Google Play</span>
             </span>
           </a>
+        </div>
         </div>
       </div>
     </section>
