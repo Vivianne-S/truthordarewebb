@@ -2,96 +2,139 @@
 
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 import styles from "./Hero.module.css";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const TAGS_LEFT = ["Play with friends", "Challenge yourself", "No limits"];
 const TAGS_RIGHT = ["Have fun", "Get the party started", "Make memories"];
 
 const TITLE_WORDS = ["Truth", "or", "Dare"];
 
+function runHeroAnimations(
+  letters: Element[],
+  tagline: HTMLParagraphElement | null,
+  subtitle: HTMLParagraphElement | null,
+  leftTags: Element[],
+  rightTags: Element[],
+  lightSweep: HTMLDivElement | null,
+  scrollCue: HTMLDivElement | null
+) {
+  gsap.killTweensOf([letters, tagline, subtitle, leftTags, rightTags, lightSweep, scrollCue].flat().filter(Boolean));
+
+  if (letters.length > 0) {
+    gsap.set(letters, { opacity: 0 });
+    gsap.to(letters, {
+      opacity: 1,
+      duration: 0.65,
+      stagger: 0.07,
+      ease: "power2.out",
+      delay: 0.1,
+    });
+  }
+
+  if (tagline) {
+    gsap.set(tagline, { opacity: 0, y: 14 });
+    gsap.to(tagline, {
+      opacity: 1,
+      y: 0,
+      duration: 0.75,
+      ease: "power2.out",
+      delay: 1.15,
+    });
+  }
+
+  if (subtitle) {
+    gsap.set(subtitle, { opacity: 0, y: 12 });
+    gsap.to(subtitle, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: "power2.out",
+      delay: 2,
+    });
+  }
+
+  if (lightSweep) {
+    gsap.set(lightSweep, { x: "-100%" });
+    gsap.to(lightSweep, {
+      x: "100%",
+      duration: 1.2,
+      ease: "power2.inOut",
+      repeat: -1,
+      repeatDelay: 3,
+      delay: 2.9,
+    });
+  }
+
+  gsap.set(leftTags, { x: -200, opacity: 0, scale: 1.5 });
+  gsap.set(rightTags, { x: 200, opacity: 0, scale: 1.5 });
+
+  const rowDelay = 0.9;
+  for (let i = 0; i < Math.max(leftTags.length, rightTags.length); i++) {
+    const startTime = 2.9 + i * rowDelay;
+    if (leftTags[i]) {
+      gsap.to(leftTags[i], { x: 0, opacity: 0.9, scale: 1, duration: 1.4, ease: "power3.out", delay: startTime });
+    }
+    if (rightTags[i]) {
+      gsap.to(rightTags[i], { x: 0, opacity: 0.9, scale: 1, duration: 1.4, ease: "power3.out", delay: startTime });
+    }
+  }
+
+  if (scrollCue) {
+    gsap.set(scrollCue, { opacity: 0 });
+    gsap.to(scrollCue, {
+      opacity: 1,
+      duration: 0.9,
+      ease: "power2.out",
+      delay: 6.2,
+    });
+  }
+}
+
 export default function Hero() {
   const heroRef = useRef<HTMLElement>(null);
-  const subtitleRef = useRef<HTMLParagraphElement>(null);
   const leftTagsRef = useRef<HTMLDivElement>(null);
   const rightTagsRef = useRef<HTMLDivElement>(null);
   const lightSweepRef = useRef<HTMLDivElement>(null);
   const scrollCueRef = useRef<HTMLDivElement>(null);
+  const taglineRef = useRef<HTMLParagraphElement>(null);
+  const subtitleRef = useRef<HTMLParagraphElement>(null);
   const titleLettersRef = useRef<(HTMLSpanElement | null)[]>([]);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      const letters = titleLettersRef.current.filter(Boolean);
-      if (letters.length > 0) {
-        gsap.set(letters, { opacity: 0 });
-        gsap.to(letters, {
-          opacity: 1,
-          duration: 0.7,
-          stagger: 0.08,
-          ease: "power2.out",
-        });
-      }
+    const hero = heroRef.current;
+    if (!hero) return;
 
-      if (subtitleRef.current) {
-        gsap.to(subtitleRef.current, {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: "power2.out",
-          delay: 1.4,
-        });
-      }
+    const letters = titleLettersRef.current.filter((el): el is HTMLSpanElement => el != null);
+    const leftTags = leftTagsRef.current?.children ? Array.from(leftTagsRef.current.children) : [];
+    const rightTags = rightTagsRef.current?.children ? Array.from(rightTagsRef.current.children) : [];
 
-      const leftTags = leftTagsRef.current?.children
-        ? Array.from(leftTagsRef.current.children)
-        : [];
-      const rightTags = rightTagsRef.current?.children
-        ? Array.from(rightTagsRef.current.children)
-        : [];
+    const play = () =>
+      runHeroAnimations(
+        letters,
+        taglineRef.current,
+        subtitleRef.current,
+        leftTags,
+        rightTags,
+        lightSweepRef.current,
+        scrollCueRef.current
+      );
 
-      if (leftTags.length === 0 && rightTags.length === 0) return;
+    play();
 
-      if (lightSweepRef.current) {
-        gsap.set(lightSweepRef.current, { x: "-100%" });
-        gsap.to(lightSweepRef.current, {
-          x: "100%",
-          duration: 1.2,
-          ease: "power2.inOut",
-          repeat: -1,
-          repeatDelay: 3,
-          delay: 2.5,
-        });
-      }
+    const st = ScrollTrigger.create({
+      trigger: hero,
+      start: "top bottom",
+      end: "bottom top",
+      onEnterBack: play,
+    });
 
-
-      gsap.set(leftTags, { x: -200, opacity: 0, scale: 1.5 });
-      gsap.set(rightTags, { x: 200, opacity: 0, scale: 1.5 });
-
-      const tl = gsap.timeline();
-      const rowDelay = 0.9;
-      for (let i = 0; i < Math.max(leftTags.length, rightTags.length); i++) {
-        const leftEl = leftTags[i];
-        const rightEl = rightTags[i];
-        const startTime = 2.5 + i * rowDelay;
-        if (leftEl) {
-          tl.to(leftEl, { x: 0, opacity: 0.9, scale: 1, duration: 1.4, ease: "power3.out" }, startTime);
-        }
-        if (rightEl) {
-          tl.to(rightEl, { x: 0, opacity: 0.9, scale: 1, duration: 1.4, ease: "power3.out" }, startTime);
-        }
-      }
-
-      if (scrollCueRef.current) {
-        gsap.set(scrollCueRef.current, { opacity: 0 });
-        gsap.to(scrollCueRef.current, {
-          opacity: 1,
-          duration: 0.8,
-          ease: "power2.out",
-          delay: 5.5,
-        });
-      }
-    }, heroRef);
-
-    return () => ctx.revert();
+    return () => {
+      st.kill();
+      gsap.killTweensOf(hero.querySelectorAll("*"));
+    };
   }, []);
 
   return (
@@ -126,9 +169,14 @@ export default function Hero() {
         <div ref={lightSweepRef} className={styles.lightSweep} aria-hidden="true" />
       </div>
 
-      <p ref={subtitleRef} className={styles.subtitle}>
-        Perfect for parties, birthdays, girls nights, guys nights & friend groups.
-      </p>
+      <div className={styles.taglineWrap}>
+        <p ref={taglineRef} className={styles.tagline}>
+          Who&apos;s the darest of them all?
+        </p>
+        <p ref={subtitleRef} className={styles.subtitle}>
+          Perfect for parties, birthdays, girls nights, guys nights & friend groups.
+        </p>
+      </div>
 
       <div className={styles.heroTags}>
         <div ref={leftTagsRef} className={styles.heroTagsLeft}>
