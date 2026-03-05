@@ -164,7 +164,7 @@
   color: #fff;
   text-decoration: none;
   border-radius: 10px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .ctaStoreIcon {
@@ -207,31 +207,33 @@
 }
 
 .ctaAppStore:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
   box-shadow:
-    0 0 32px rgba(140, 80, 255, 0.35),
-    0 0 56px rgba(100, 50, 200, 0.18),
+    0 0 30px rgba(180, 100, 255, 0.7),
+    0 0 50px rgba(140, 60, 255, 0.5),
+    0 0 80px rgba(120, 40, 220, 0.3),
     0 4px 12px rgba(0, 0, 0, 0.35),
-    0 1px 0 rgba(255, 255, 255, 0.12) inset;
+    0 1px 0 rgba(255, 255, 255, 0.15) inset;
 }
 
 .ctaGooglePlay {
   background: rgba(0, 0, 0, 0.5);
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow:
-    0 0 24px rgba(100, 200, 255, 0.2),
-    0 0 48px rgba(60, 140, 255, 0.1),
+    0 0 24px rgba(60, 140, 255, 0.2),
+    0 0 48px rgba(40, 100, 220, 0.1),
     0 2px 8px rgba(0, 0, 0, 0.3),
     0 1px 0 rgba(255, 255, 255, 0.08) inset;
 }
 
 .ctaGooglePlay:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
   box-shadow:
-    0 0 32px rgba(100, 200, 255, 0.3),
-    0 0 56px rgba(60, 140, 255, 0.15),
+    0 0 30px rgba(100, 180, 255, 0.7),
+    0 0 50px rgba(60, 140, 255, 0.5),
+    0 0 80px rgba(40, 100, 220, 0.3),
     0 4px 12px rgba(0, 0, 0, 0.35),
-    0 1px 0 rgba(255, 255, 255, 0.12) inset;
+    0 1px 0 rgba(255, 255, 255, 0.15) inset;
 }
 /* Cinematic fade IN at top of CTA section */
 .ctaSection::before{
