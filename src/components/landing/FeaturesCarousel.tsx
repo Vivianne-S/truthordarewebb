@@ -169,7 +169,7 @@ export default function FeaturesCarousel() {
           start: "top top",
           end: () => `+=${Math.max(Math.abs(getMaxX()) * 1.8 + 1500, 5000)}`,
           pin: true,
-          scrub: 0.9,
+          scrub: 1.2,
           anticipatePin: 1,
           invalidateOnRefresh: true,
 
@@ -181,6 +181,7 @@ export default function FeaturesCarousel() {
               const nearest = gsap.utils.snap(snapPoints.points, x);
               const nearestIndex = snapPoints.points.indexOf(nearest);
 
+              // Gå strikt 1→6 neråt, 6→1 uppåt – ett steg i taget
               const step = Math.sign(nearestIndex - lastSnapIndex);
               const clampedIndex = Math.max(
                 0,
@@ -195,8 +196,8 @@ export default function FeaturesCarousel() {
               const clampedX = snapPoints.points[clampedIndex];
               return maxX === 0 ? 0 : clampedX / maxX;
             },
-            duration: { min: 0.18, max: 0.5 },
-            ease: "power3.out",
+            duration: { min: 0.35, max: 0.7 },
+            ease: "power2.out",
             inertia: true,
           },
 
