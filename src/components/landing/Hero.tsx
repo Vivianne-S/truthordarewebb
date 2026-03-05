@@ -7,22 +7,37 @@ import styles from "./Hero.module.css";
 const TAGS_LEFT = ["Play with friends", "Challenge yourself", "No limits"];
 const TAGS_RIGHT = ["Have fun", "Get the party started", "Make memories"];
 
+const TITLE_WORDS = ["Truth", "or", "Dare"];
+
 export default function Hero() {
   const heroRef = useRef<HTMLElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const leftTagsRef = useRef<HTMLDivElement>(null);
   const rightTagsRef = useRef<HTMLDivElement>(null);
   const lightSweepRef = useRef<HTMLDivElement>(null);
+  const scrollCueRef = useRef<HTMLDivElement>(null);
+  const titleLettersRef = useRef<(HTMLSpanElement | null)[]>([]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      const letters = titleLettersRef.current.filter(Boolean);
+      if (letters.length > 0) {
+        gsap.set(letters, { opacity: 0 });
+        gsap.to(letters, {
+          opacity: 1,
+          duration: 0.7,
+          stagger: 0.08,
+          ease: "power2.out",
+        });
+      }
+
       if (subtitleRef.current) {
         gsap.to(subtitleRef.current, {
           opacity: 1,
           y: 0,
           duration: 0.8,
           ease: "power2.out",
-          delay: 0.35,
+          delay: 1.4,
         });
       }
 
@@ -43,6 +58,7 @@ export default function Hero() {
           ease: "power2.inOut",
           repeat: -1,
           repeatDelay: 3,
+          delay: 2.5,
         });
       }
 
@@ -55,13 +71,23 @@ export default function Hero() {
       for (let i = 0; i < Math.max(leftTags.length, rightTags.length); i++) {
         const leftEl = leftTags[i];
         const rightEl = rightTags[i];
-        const startTime = 0.6 + i * rowDelay;
+        const startTime = 2.5 + i * rowDelay;
         if (leftEl) {
           tl.to(leftEl, { x: 0, opacity: 0.9, scale: 1, duration: 1.4, ease: "power3.out" }, startTime);
         }
         if (rightEl) {
           tl.to(rightEl, { x: 0, opacity: 0.9, scale: 1, duration: 1.4, ease: "power3.out" }, startTime);
         }
+      }
+
+      if (scrollCueRef.current) {
+        gsap.set(scrollCueRef.current, { opacity: 0 });
+        gsap.to(scrollCueRef.current, {
+          opacity: 1,
+          duration: 0.8,
+          ease: "power2.out",
+          delay: 5.5,
+        });
       }
     }, heroRef);
 
@@ -75,9 +101,27 @@ export default function Hero() {
           Truth or Dare
         </span>
         <h1 className={styles.title}>
-          <span className={styles.titleWord}>Truth</span>
-          <span className={styles.titleWord}>or</span>
-          <span className={styles.titleWord}>Dare</span>
+          {(() => {
+            let letterIdx = 0;
+            return TITLE_WORDS.map((word) => (
+              <span key={word} className={styles.titleWord}>
+                {word.split("").map((char) => {
+                  const idx = letterIdx++;
+                  return (
+                    <span
+                      key={idx}
+                      ref={(el) => {
+                        if (el) titleLettersRef.current[idx] = el;
+                      }}
+                      className={styles.titleLetter}
+                    >
+                      {char}
+                    </span>
+                  );
+                })}
+              </span>
+            ));
+          })()}
         </h1>
         <div ref={lightSweepRef} className={styles.lightSweep} aria-hidden="true" />
       </div>
@@ -103,7 +147,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className={styles.scrollCue}>
+      <div ref={scrollCueRef} className={styles.scrollCue}>
         <span className={styles.scrollCueText}>Scroll to explore gameplay</span>
         <span className={styles.scrollCueArrow} aria-hidden="true">↓</span>
       </div>
