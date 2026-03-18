@@ -3,7 +3,7 @@
 import CosmicBackgroundStack from "./CosmicBackgroundStack";
 import StarfieldParticles from "./StarfieldParticles";
 import Hero from "./Hero";
-import FeaturesCarousel from "./FeaturesCarousel";
+import GallerySectioned from "./GallerySectioned";
 import CTASection, { CTA_TRIGGER_ID } from "./CTASection";
 import styles from "./LandingPage.module.css";
 
@@ -26,8 +26,8 @@ export default function LandingCinematic() {
       {/* Hero section with title, tagline, and scroll cue */}
       <Hero />
 
-      {/* Scroll-driven carousel of app feature screenshots */}
-      <FeaturesCarousel />
+      {/* Gallery: Introduction, Local game, Create Game, Join Game */}
+      <GallerySectioned />
 
       {/* Call-to-action with download buttons and floating avatars */}
       <CTASection />
