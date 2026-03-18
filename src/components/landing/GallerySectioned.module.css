@@ -47,6 +47,11 @@
   pointer-events: auto;
 }
 
+/* Intro (balanced) – extra padding så kort inte överlappar progress dots */
+.section:has([data-balanced="true"]) {
+  padding-bottom: 5rem;
+}
+
 .rowSpacer {
   flex-shrink: 0;
   width: 408px; /* cardWidth 360 + gap 48 */
@@ -83,6 +88,11 @@
   transform-style: preserve-3d;
   will-change: transform, opacity;
   transform-origin: center center;
+}
+
+/* Överrida FeatureCard min-height – i galleriet ska kort ta naturlig höjd, inte 100vh */
+.cardSlot > * {
+  min-height: 0;
 }
 
 .cardSlotActive {
