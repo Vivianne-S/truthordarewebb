@@ -21,33 +21,71 @@
   padding: 44px 40px 48px;
   border-radius: 28px;
   background: rgba(12, 6, 24, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 2px solid rgba(255, 100, 220, 0.5);
   backdrop-filter: blur(24px);
   box-shadow:
-    0 0 0 1px rgba(255, 60, 200, 0.15),
+    0 0 0 1px rgba(255, 80, 200, 0.4),
+    0 0 30px rgba(255, 80, 200, 0.5),
+    0 0 60px rgba(180, 60, 255, 0.4),
+    0 0 100px rgba(140, 40, 255, 0.3),
     0 4px 24px rgba(0, 0, 0, 0.3),
-    0 0 60px rgba(140, 60, 255, 0.15),
-    0 0 80px rgba(140, 0, 255, 0.08),
-    0 0 1px rgba(255, 255, 255, 0.08) inset;
-  animation: ctaCardGlow 4s ease-in-out infinite;
+    0 0 1px rgba(255, 255, 255, 0.12) inset;
+  animation: ctaCardGlow 3s ease-in-out infinite;
+}
+
+/* Neon glow ring outside the box */
+.ctaContent::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 32px;
+  border: 1px solid rgba(255, 120, 220, 0.35);
+  box-shadow:
+    0 0 20px rgba(255, 100, 220, 0.4),
+    0 0 40px rgba(180, 80, 255, 0.3),
+    inset 0 0 20px rgba(255, 80, 200, 0.05);
+  pointer-events: none;
+  animation: ctaNeonRing 3s ease-in-out infinite;
+  z-index: -1;
 }
 
 @keyframes ctaCardGlow {
   0%, 100% {
+    border-color: rgba(255, 100, 220, 0.5);
     box-shadow:
-      0 0 0 1px rgba(255, 60, 200, 0.15),
+      0 0 0 1px rgba(255, 80, 200, 0.4),
+      0 0 30px rgba(255, 80, 200, 0.5),
+      0 0 60px rgba(180, 60, 255, 0.4),
+      0 0 100px rgba(140, 40, 255, 0.3),
       0 4px 24px rgba(0, 0, 0, 0.3),
-      0 0 60px rgba(140, 60, 255, 0.15),
-      0 0 80px rgba(140, 0, 255, 0.08),
-      0 0 1px rgba(255, 255, 255, 0.08) inset;
+      0 0 1px rgba(255, 255, 255, 0.12) inset;
   }
   50% {
+    border-color: rgba(255, 120, 240, 0.7);
     box-shadow:
-      0 0 0 1px rgba(255, 60, 200, 0.25),
+      0 0 0 1px rgba(255, 100, 220, 0.6),
+      0 0 40px rgba(255, 100, 220, 0.7),
+      0 0 80px rgba(200, 80, 255, 0.5),
+      0 0 120px rgba(160, 60, 255, 0.4),
       0 4px 24px rgba(0, 0, 0, 0.3),
-      0 0 80px rgba(160, 80, 255, 0.2),
-      0 0 100px rgba(140, 0, 255, 0.12),
-      0 0 1px rgba(255, 255, 255, 0.1) inset;
+      0 0 1px rgba(255, 255, 255, 0.15) inset;
+  }
+}
+
+@keyframes ctaNeonRing {
+  0%, 100% {
+    opacity: 0.7;
+    box-shadow:
+      0 0 20px rgba(255, 100, 220, 0.4),
+      0 0 40px rgba(180, 80, 255, 0.3),
+      inset 0 0 20px rgba(255, 80, 200, 0.05);
+  }
+  50% {
+    opacity: 1;
+    box-shadow:
+      0 0 30px rgba(255, 120, 220, 0.6),
+      0 0 60px rgba(200, 100, 255, 0.4),
+      inset 0 0 30px rgba(255, 100, 220, 0.08);
   }
 }
 
@@ -64,6 +102,7 @@
   );
   pointer-events: none;
   animation: ctaScanLine 3s ease-in-out infinite;
+  z-index: 1;
 }
 
 @keyframes ctaScanLine {
@@ -92,14 +131,47 @@
 .ctaAvatar {
   position: relative;
   border-radius: 50%;
-  overflow: hidden;
-  border: 2px solid rgba(200, 150, 255, 0.5);
+  overflow: visible;
+  border: 2px solid rgba(255, 100, 220, 0.6);
   box-shadow:
-    0 0 20px rgba(160, 80, 255, 0.8),
-    0 0 40px rgba(140, 60, 255, 0.6),
-    0 0 60px rgba(120, 40, 220, 0.4);
+    0 0 24px rgba(255, 80, 200, 0.9),
+    0 0 48px rgba(180, 60, 255, 0.6),
+    0 0 72px rgba(140, 40, 255, 0.4),
+    0 4px 16px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
   animation: ctaAvatarFloat 6s ease-in-out infinite, ctaAvatarGlow 3.5s ease-in-out infinite;
   transform: translate(-50%, -50%);
+}
+
+/* Floating ring around avatar */
+.ctaAvatar::before {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 120, 220, 0.4);
+  animation: ctaAvatarRing 5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.ctaAvatar::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255, 100, 220, 0.15) 0%, transparent 50%, rgba(100, 150, 255, 0.1) 100%);
+  animation: ctaAvatarRing 5s ease-in-out infinite reverse;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.ctaAvatarCircle {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
 }
 
 .ctaAvatarImg {
@@ -111,56 +183,75 @@
 
 @keyframes ctaAvatarGlow {
   0%, 100% {
-    filter: brightness(1);
+    filter: brightness(1) saturate(1.1);
     box-shadow:
-      0 0 20px rgba(160, 80, 255, 0.8),
-      0 0 40px rgba(140, 60, 255, 0.6),
-      0 0 60px rgba(120, 40, 220, 0.4);
+      0 0 24px rgba(255, 80, 200, 0.9),
+      0 0 48px rgba(180, 60, 255, 0.6),
+      0 0 72px rgba(140, 40, 255, 0.4),
+      0 4px 16px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
   }
   50% {
-    filter: brightness(1.1);
+    filter: brightness(1.15) saturate(1.2);
     box-shadow:
-      0 0 28px rgba(180, 100, 255, 0.9),
-      0 0 50px rgba(150, 70, 255, 0.7),
-      0 0 80px rgba(130, 50, 230, 0.5);
+      0 0 36px rgba(255, 100, 220, 1),
+      0 0 64px rgba(200, 80, 255, 0.8),
+      0 0 100px rgba(160, 60, 255, 0.5),
+      0 6px 20px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
   }
 }
 
-.ctaAvatar:nth-child(odd) {
+@keyframes ctaAvatarRing {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.08); }
+}
+
+.ctaAvatarWrap:nth-child(odd) .ctaAvatar {
   animation-name: ctaAvatarFloatAlt, ctaAvatarGlow;
 }
 
-.ctaAvatar:nth-child(1) { animation-delay: 0s, 0s; animation-duration: 6s, 3s; }
-.ctaAvatar:nth-child(2) { animation-delay: 1.2s, 0.4s; animation-duration: 7s, 3s; }
-.ctaAvatar:nth-child(3) { animation-delay: 0.6s, 0.8s; animation-duration: 5.5s, 3s; }
-.ctaAvatar:nth-child(4) { animation-delay: 0.3s, 1.2s; animation-duration: 6.5s, 3s; }
-.ctaAvatar:nth-child(5) { animation-delay: 1.8s, 1.6s; animation-duration: 5s, 3s; }
-.ctaAvatar:nth-child(6) { animation-delay: 0.9s, 2s; animation-duration: 6.2s, 3s; }
-.ctaAvatar:nth-child(7) { animation-delay: 1.5s, 0.2s; animation-duration: 5.8s, 3s; }
-.ctaAvatar:nth-child(8) { animation-delay: 0.4s, 1.4s; animation-duration: 6.8s, 3s; }
-.ctaAvatar:nth-child(9) { animation-delay: 1.1s, 0.6s; animation-duration: 5.3s, 3s; }
+.ctaAvatarWrap:nth-child(1) .ctaAvatar { animation-delay: 0s, 0s; animation-duration: 6s, 3s; }
+.ctaAvatarWrap:nth-child(2) .ctaAvatar { animation-delay: 1.2s, 0.4s; animation-duration: 7s, 3s; }
+.ctaAvatarWrap:nth-child(3) .ctaAvatar { animation-delay: 0.6s, 0.8s; animation-duration: 5.5s, 3s; }
+.ctaAvatarWrap:nth-child(4) .ctaAvatar { animation-delay: 0.3s, 1.2s; animation-duration: 6.5s, 3s; }
+.ctaAvatarWrap:nth-child(5) .ctaAvatar { animation-delay: 1.8s, 1.6s; animation-duration: 5s, 3s; }
+.ctaAvatarWrap:nth-child(6) .ctaAvatar { animation-delay: 0.9s, 2s; animation-duration: 6.2s, 3s; }
+.ctaAvatarWrap:nth-child(7) .ctaAvatar { animation-delay: 1.5s, 0.2s; animation-duration: 5.8s, 3s; }
+.ctaAvatarWrap:nth-child(8) .ctaAvatar { animation-delay: 0.4s, 1.4s; animation-duration: 6.8s, 3s; }
+.ctaAvatarWrap:nth-child(9) .ctaAvatar { animation-delay: 1.1s, 0.6s; animation-duration: 5.3s, 3s; }
+
+.ctaAvatarWrap:nth-child(1) .ctaAvatar::before { animation-delay: 0s; }
+.ctaAvatarWrap:nth-child(2) .ctaAvatar::before { animation-delay: 0.8s; }
+.ctaAvatarWrap:nth-child(3) .ctaAvatar::before { animation-delay: 0.3s; }
+.ctaAvatarWrap:nth-child(4) .ctaAvatar::before { animation-delay: 1.2s; }
+.ctaAvatarWrap:nth-child(5) .ctaAvatar::before { animation-delay: 0.5s; }
+.ctaAvatarWrap:nth-child(6) .ctaAvatar::before { animation-delay: 1s; }
+.ctaAvatarWrap:nth-child(7) .ctaAvatar::before { animation-delay: 0.2s; }
+.ctaAvatarWrap:nth-child(8) .ctaAvatar::before { animation-delay: 0.7s; }
+.ctaAvatarWrap:nth-child(9) .ctaAvatar::before { animation-delay: 0.4s; }
 
 @keyframes ctaAvatarFloat {
   0%, 100% {
-    transform: translateY(0) rotate(0deg);
+    transform: translate(-50%, -50%) translateY(0) rotate(0deg);
   }
   33% {
-    transform: translateY(-10px) rotate(4deg);
+    transform: translate(-50%, -50%) translateY(-12px) rotate(5deg);
   }
   66% {
-    transform: translateY(6px) rotate(-3deg);
+    transform: translate(-50%, -50%) translateY(8px) rotate(-4deg);
   }
 }
 
 @keyframes ctaAvatarFloatAlt {
   0%, 100% {
-    transform: translateY(0) rotate(0deg);
+    transform: translate(-50%, -50%) translateY(0) rotate(0deg);
   }
   40% {
-    transform: translateY(8px) rotate(-4deg);
+    transform: translate(-50%, -50%) translateY(10px) rotate(-5deg);
   }
   70% {
-    transform: translateY(-6px) rotate(3deg);
+    transform: translate(-50%, -50%) translateY(-8px) rotate(4deg);
   }
 }
 
