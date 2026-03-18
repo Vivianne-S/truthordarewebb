@@ -134,8 +134,8 @@ export default function GallerySectioned() {
 
           const w = viewport.clientWidth;
           const rowW = row.scrollWidth;
-          const cardWidth = 320;
-          const gap = 32;
+          const cardWidth = 360;
+          const gap = 48;
           const slotWidth = cardWidth + gap;
           const isBalanced = numImages <= 4;
 
@@ -146,7 +146,7 @@ export default function GallerySectioned() {
               const cardCenterOffset = spacer + gap + idx * slotWidth + cardWidth / 2;
               return w / 2 - rowLeft - cardCenterOffset;
             }
-            const paddingLeft = Math.max(16, w / 2 - 170);
+            const paddingLeft = Math.max(16, w / 2 - 180);
             const cardCenterOffset = idx * slotWidth + cardWidth / 2;
             return w / 2 - paddingLeft - cardCenterOffset;
           };
@@ -168,7 +168,7 @@ export default function GallerySectioned() {
             const cardCenter = rect.left + rect.width / 2;
             const dist = Math.abs(cardCenter - cx);
             const norm = Math.min(1, dist / 400);
-            const scale = j === cardIndex ? 1.12 : 0.82;
+            const scale = j === cardIndex ? 1.08 : 0.88;
             const opacity = 0.82 + 0.18 * (1 - norm);
             const rotateY = ((cardCenter - cx) / 500) * -4;
             gsap.set(card as HTMLElement, { scale, opacity, rotateY });

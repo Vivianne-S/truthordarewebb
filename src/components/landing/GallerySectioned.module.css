@@ -49,7 +49,7 @@
 
 .rowSpacer {
   flex-shrink: 0;
-  width: 352px; /* cardWidth 320 + gap 32 */
+  width: 408px; /* cardWidth 360 + gap 48 */
 }
 
 .row {
@@ -61,9 +61,9 @@
   width: 100%;
   min-height: 0;
   will-change: transform;
-  gap: 2rem;
-  padding-left: max(1rem, calc(50vw - 170px));
-  padding-right: max(1rem, calc(50vw - 170px));
+  gap: 3rem;
+  padding-left: max(1rem, calc(50vw - 180px));
+  padding-right: max(1rem, calc(50vw - 180px));
   transform-style: preserve-3d;
 }
 
@@ -76,7 +76,7 @@
 
 .cardSlot {
   flex-shrink: 0;
-  width: min(320px, 46vw);
+  width: 360px;
   display: flex;
   align-items: center;
   justify-content: center;
