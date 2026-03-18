@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import CTAParticles from "./CTAParticles";
 import styles from "./CTASection.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -13,7 +14,7 @@ export const CTA_TRIGGER_ID = "bg-switch";
 // Avatar positions and animation direction for the CTA section
 const FLOATING_AVATARS = [
   { size: 72, x: "16%", y: "22%", src: "/avatar_monkey.png", from: "left" as const },
-  { size: 64, x: "84%", y: "24%", src: "/avatar_pinguin.png", from: "right" as const },
+  { size: 64, x: "84%", y: "24%", src: "/avatar_penguin.png", from: "right" as const },
   { size: 68, x: "14%", y: "80%", src: "/avatar_alien.png", from: "left" as const },
   { size: 76, x: "86%", y: "76%", src: "/avatar_guy5.png", from: "right" as const },
   { size: 58, x: "26%", y: "18%", src: "/avatar_guy6.png", from: "left" as const },
@@ -31,6 +32,8 @@ export default function CTASection() {
 
   useEffect(() => {
     if (!sectionRef.current || !contentRef.current) return;
+
+    let cleanupMouse: (() => void) | null = null;
 
     const ctx = gsap.context(() => {
       // Set initial state for cinematic reveal (blur + slide up)
@@ -74,10 +77,34 @@ export default function CTASection() {
             toggleActions: "play reverse play reverse",
           },
         });
+
+        // Mouse parallax – avatarerna följer musen subtilt
+        const avatarParallax = avatars.map((el) =>
+          gsap.quickTo(el, "x", { duration: 0.4, ease: "power2.out" })
+        );
+        const ySetters = avatars.map((el) =>
+          gsap.quickTo(el, "y", { duration: 0.4, ease: "power2.out" })
+        );
+        const handleMouseMove = (e: MouseEvent) => {
+          avatars.forEach((el, i) => {
+            const rect = el.getBoundingClientRect();
+            const elCenterX = rect.left + rect.width / 2;
+            const elCenterY = rect.top + rect.height / 2;
+            const distX = (e.clientX - elCenterX) / window.innerWidth;
+            const distY = (e.clientY - elCenterY) / window.innerHeight;
+            avatarParallax[i](distX * 12);
+            ySetters[i](distY * 8);
+          });
+        };
+        window.addEventListener("mousemove", handleMouseMove);
+        cleanupMouse = () => window.removeEventListener("mousemove", handleMouseMove);
       }
     }, sectionRef);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      cleanupMouse?.();
+    };
   }, []);
 
   return (
@@ -86,6 +113,7 @@ export default function CTASection() {
       id={CTA_TRIGGER_ID}
       className={styles.ctaSection}
     >
+      <CTAParticles sectionRef={sectionRef} />
       <div className={styles.ctaAvatars} aria-hidden="true">
           {FLOATING_AVATARS.map((avatar, i) => (
             <div
