@@ -11,17 +11,19 @@ gsap.registerPlugin(ScrollTrigger);
 // ID used by CosmicBackgroundStack to trigger background crossfade
 export const CTA_TRIGGER_ID = "bg-switch";
 
-// Avatar positions and animation direction for the CTA section
+// Avatar positions – elliptical frame around CTA box, balanced left/right
+// Sizes: 48–56 (small), 64–72 (medium), 84–92 (large)
+// Y: min 22% (top) för att undvika clipping
 const FLOATING_AVATARS = [
-  { size: 72, x: "16%", y: "22%", src: "/avatar_monkey.png", from: "left" as const },
-  { size: 64, x: "84%", y: "24%", src: "/avatar_penguin.png", from: "right" as const },
-  { size: 68, x: "14%", y: "80%", src: "/avatar_alien.png", from: "left" as const },
-  { size: 76, x: "86%", y: "76%", src: "/avatar_guy5.png", from: "right" as const },
-  { size: 58, x: "26%", y: "18%", src: "/avatar_guy6.png", from: "left" as const },
-  { size: 66, x: "10%", y: "48%", src: "/avatar_guy7.png", from: "left" as const },
-  { size: 62, x: "90%", y: "50%", src: "/avatar11.png", from: "right" as const },
-  { size: 70, x: "68%", y: "86%", src: "/avatar12.png", from: "right" as const },
-  { size: 68, x: "20%", y: "84%", src: "/avatar13.png", from: "left" as const },
+  { size: 88, x: "12%", y: "24%", src: "/avatar_monkey.png", from: "left" as const },
+  { size: 72, x: "88%", y: "26%", src: "/avatar_penguin.png", from: "right" as const },
+  { size: 68, x: "6%", y: "48%", src: "/avatar_alien.png", from: "left" as const },
+  { size: 90, x: "94%", y: "50%", src: "/avatar_guy5.png", from: "right" as const },
+  { size: 56, x: "20%", y: "82%", src: "/avatar_guy6.png", from: "left" as const },
+  { size: 64, x: "80%", y: "78%", src: "/avatar_guy7.png", from: "right" as const },
+  { size: 52, x: "32%", y: "22%", src: "/avatar11.png", from: "left" as const },
+  { size: 54, x: "68%", y: "22%", src: "/avatar12.png", from: "right" as const },
+  { size: 84, x: "50%", y: "88%", src: "/avatar13.png", from: "left" as const },
 ];
 
 // CTA section: download buttons, floating avatars, and cinematic entrance
@@ -129,11 +131,13 @@ export default function CTASection() {
                 className={styles.ctaAvatar}
                 style={{ width: avatar.size, height: avatar.size }}
               >
-                <img
-                  src={avatar.src}
-                  alt=""
-                  className={styles.ctaAvatarImg}
-                />
+                <div className={styles.ctaAvatarCircle}>
+                  <img
+                    src={avatar.src}
+                    alt=""
+                    className={styles.ctaAvatarImg}
+                  />
+                </div>
               </div>
             </div>
           ))}
