@@ -40,7 +40,7 @@ export default function StarfieldParticles() {
 
     const purple = new THREE.Color(0x8a4aff);
     const pink = new THREE.Color(0xe04aff);
-    const white = new THREE.Color(0xffffff);
+    const blue = new THREE.Color(0x4a8aff);
 
     for (let i = 0; i < count; i++) {
       // Spread in a wide box (parallax depth)
@@ -48,9 +48,9 @@ export default function StarfieldParticles() {
       positions[i * 3 + 1] = (Math.random() - 0.5) * 24;
       positions[i * 3 + 2] = (Math.random() - 0.5) * 12;
 
-      // Cosmic color mix
+      // Cosmic color mix – purple, pink and blue
       const t = Math.random();
-      const c = t < 0.3 ? purple : t < 0.7 ? pink : white;
+      const c = t < 0.33 ? purple : t < 0.66 ? pink : blue;
       colors[i * 3] = c.r;
       colors[i * 3 + 1] = c.g;
       colors[i * 3 + 2] = c.b;
@@ -61,10 +61,10 @@ export default function StarfieldParticles() {
     geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
 
     const material = new THREE.PointsMaterial({
-      size: 0.15,
+      size: 0.06,
       vertexColors: true,
       transparent: true,
-      opacity: 0.7,
+      opacity: 0.4,
       sizeAttenuation: true,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
@@ -98,8 +98,8 @@ export default function StarfieldParticles() {
       particles.rotation.x = mouseRef.current.y * 0.3;
 
       // Subtle pulse on opacity
-      const opacity = 0.5 + Math.sin(time * 2) * 0.15;
-      (material as THREE.PointsMaterial).opacity = Math.min(0.85, opacity);
+      const opacity = 0.35 + Math.sin(time * 2) * 0.1;
+      (material as THREE.PointsMaterial).opacity = Math.min(0.5, opacity);
 
       renderer.render(scene, camera);
     }
