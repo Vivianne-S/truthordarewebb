@@ -1,6 +1,17 @@
 .page {
   min-height: 100vh;
-  background: #050010;
+  background: radial-gradient(
+      ellipse 120% 100% at 50% 40%,
+      rgba(60, 20, 100, 0.35) 0%,
+      rgba(30, 5, 60, 0.2) 40%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 80% 60% at 50% 50%,
+      rgba(140, 60, 200, 0.12) 0%,
+      transparent 50%
+    ),
+    #050010;
   color: white;
   position: relative;
   overflow-x: hidden;
