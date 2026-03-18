@@ -6,11 +6,12 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import { FEATURES } from "@/constants/landing";
 import FeatureCard from "./FeatureCard";
 import ProgressDots from "./ProgressDots";
+import GalleryThreeBackground from "./GalleryThreeBackground";
 import styles from "./FeaturesCarousel.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Scroll-pinned carousel: cards move horizontally with scroll, spotlight effect on center card
+// Scroll-pinned carousel: cards move horizontally with scroll, spotlight effect, futuristic feel
 export default function FeaturesCarousel() {
   const featuresRef = useRef<HTMLElement>(null);
   const featuresRowRef = useRef<HTMLDivElement>(null);
@@ -30,19 +31,20 @@ export default function FeaturesCarousel() {
 
       if (!section || !row || cards.length === 0) return;
 
-      // Fade in the section as user scrolls toward it (before it gets pinned)
+      // Fade in the section – smooth futuristic entrance
       gsap.fromTo(
         section,
-        { opacity: 0, y: 60 },
+        { opacity: 0, y: 80, filter: "blur(14px)" },
         {
           opacity: 1,
           y: 0,
-          ease: "power2.out",
+          filter: "blur(0px)",
+          ease: "power3.out",
           scrollTrigger: {
             trigger: section,
-            start: "top 85%",
-            end: "top 45%",
-            scrub: 1,
+            start: "top 88%",
+            end: "top 40%",
+            scrub: 1.5,
           },
         }
       );
@@ -64,21 +66,21 @@ export default function FeaturesCarousel() {
       );
       gsap.set(cards, { transformStyle: "preserve-3d", force3D: true });
 
-      // QuickTo setters for smooth, interruptible card updates on scroll
+      // QuickTo setters – smoother, more futuristic feel
       const setters = cards.map((card) => ({
         scale: gsap.quickTo(card, "scale", {
-          duration: 0.18,
-          ease: "power2.out",
+          duration: 0.28,
+          ease: "power3.out",
           overwrite: true,
         }),
         opacity: gsap.quickTo(card, "opacity", {
-          duration: 0.18,
-          ease: "power2.out",
+          duration: 0.28,
+          ease: "power3.out",
           overwrite: true,
         }),
         rotateY: gsap.quickTo(card, "rotateY", {
-          duration: 0.18,
-          ease: "power2.out",
+          duration: 0.28,
+          ease: "power3.out",
           overwrite: true,
         }),
       }));
@@ -111,11 +113,12 @@ export default function FeaturesCarousel() {
             closestIndex = i;
           }
 
-          const norm = Math.min(1, distance / 420);
+          const norm = Math.min(1, distance / 380);
+          const smoothNorm = 1 - Math.pow(1 - norm, 1.5);
 
-          const scale = i === closestIndex ? 1.12 : 0.58;
-          const opacity = 0.55 + 0.45 * (1 - norm);
-          const rotateY = ((cardCenter - cx) / 520) * -4;
+          const scale = i === closestIndex ? 1.08 : 0.62;
+          const opacity = 0.5 + 0.5 * (1 - smoothNorm);
+          const rotateY = ((cardCenter - cx) / 480) * -6;
 
           setters[i].scale(scale);
           setters[i].opacity(opacity);
@@ -130,11 +133,11 @@ export default function FeaturesCarousel() {
           activeCard?.classList.add(styles.featureCardSlotBump);
           gsap.fromTo(
             activeCard,
-            { scale: 1.16 },
+            { scale: 1.14 },
             {
-              scale: 1.12,
-              duration: 0.3,
-              ease: "power2.out",
+              scale: 1.08,
+              duration: 0.45,
+              ease: "power3.out",
               overwrite: true,
             }
           );
@@ -177,9 +180,9 @@ export default function FeaturesCarousel() {
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: () => `+=${Math.max(Math.abs(getMaxX()) * 1.8 + 1500, 5000)}`,
+          end: () => `+=${Math.max(Math.abs(getMaxX()) * 0.5 + 200, 1200)}`,
           pin: true,
-          scrub: 1.2,
+          scrub: 1,
           anticipatePin: 1,
           invalidateOnRefresh: true,
 
@@ -206,9 +209,9 @@ export default function FeaturesCarousel() {
               const clampedX = snapPoints.points[clampedIndex];
               return maxX === 0 ? 0 : clampedX / maxX;
             },
-            duration: { min: 0.35, max: 0.7 },
+            duration: { min: 0.25, max: 0.5 },
             ease: "power2.out",
-            inertia: true,
+            inertia: false,
           },
 
           onUpdate: updateSpotlight,
@@ -251,6 +254,7 @@ export default function FeaturesCarousel() {
 
   return (
     <section ref={featuresRef} className={styles.featuresSection}>
+      <GalleryThreeBackground sectionRef={featuresRef} />
       <div className={styles.featuresVignette} aria-hidden="true" />
       <ProgressDots count={FEATURES.length} activeIndex={activeIndex} />
       <div ref={featuresRowRef} className={styles.featuresRow}>
