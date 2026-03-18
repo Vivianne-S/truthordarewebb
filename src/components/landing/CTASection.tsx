@@ -145,9 +145,10 @@ export default function CTASection() {
       <div ref={contentRef} className={styles.ctaContent}>
         <div className={styles.ctaContentInner}>
         <h2 className={styles.ctaTitle}>Ready to play?</h2>
-        <p className={styles.ctaSubtitle}>
-          Download and start a game in seconds.
-        </p>
+        <div className={styles.ctaSubtitle}>
+          <p>Grab your friends and let the chaos begin.</p>
+          <p>Download now and start your first game in seconds.</p>
+        </div>
         <div className={styles.ctaButtons}>
           <a
             href="#"
