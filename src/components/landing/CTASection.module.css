@@ -277,6 +277,14 @@
   color: rgba(255, 255, 255, 0.8);
 }
 
+.ctaSubtitle p {
+  margin: 0;
+}
+
+.ctaSubtitle p + p {
+  margin-top: 0.75rem;
+}
+
 .ctaButtons {
   display: flex;
   flex-wrap: wrap;
