@@ -180,9 +180,9 @@ export default function FeaturesCarousel() {
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: () => `+=${Math.max(Math.abs(getMaxX()) * 1.8 + 1500, 5000)}`,
+          end: () => `+=${Math.max(Math.abs(getMaxX()) * 0.5 + 200, 1200)}`,
           pin: true,
-          scrub: 1.8,
+          scrub: 1,
           anticipatePin: 1,
           invalidateOnRefresh: true,
 
@@ -209,9 +209,9 @@ export default function FeaturesCarousel() {
               const clampedX = snapPoints.points[clampedIndex];
               return maxX === 0 ? 0 : clampedX / maxX;
             },
-            duration: { min: 0.5, max: 0.9 },
-            ease: "power3.inOut",
-            inertia: true,
+            duration: { min: 0.25, max: 0.5 },
+            ease: "power2.out",
+            inertia: false,
           },
 
           onUpdate: updateSpotlight,
