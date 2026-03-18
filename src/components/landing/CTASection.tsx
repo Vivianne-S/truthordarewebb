@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import { useTranslations } from "next-intl";
 import CTAParticles from "./CTAParticles";
 import styles from "./CTASection.module.css";
 
@@ -28,6 +29,7 @@ const FLOATING_AVATARS = [
 
 // CTA section: download buttons, floating avatars, and cinematic entrance
 export default function CTASection() {
+  const t = useTranslations("cta");
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const avatarsRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -144,16 +146,16 @@ export default function CTASection() {
       </div>
       <div ref={contentRef} className={styles.ctaContent}>
         <div className={styles.ctaContentInner}>
-        <h2 className={styles.ctaTitle}>Ready to play?</h2>
+        <h2 className={styles.ctaTitle}>{t("title")}</h2>
         <div className={styles.ctaSubtitle}>
-          <p>Grab your friends and let the chaos begin.</p>
-          <p>Download now and start your first game in seconds.</p>
+          <p>{t("subtitle1")}</p>
+          <p>{t("subtitle2")}</p>
         </div>
         <div className={styles.ctaButtons}>
           <a
             href="#"
             className={`${styles.ctaStoreButton} ${styles.ctaAppStore}`}
-            aria-label="Download on the App Store"
+            aria-label={t("ariaAppStore")}
           >
             <span className={styles.ctaStoreIcon} aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
@@ -161,15 +163,15 @@ export default function CTASection() {
               </svg>
             </span>
             <span className={styles.ctaStoreText}>
-              <span className={styles.ctaStoreLabel}>Download on the</span>
-              <span className={styles.ctaStoreName}>App Store</span>
+              <span className={styles.ctaStoreLabel}>{t("appStoreLabel")}</span>
+              <span className={styles.ctaStoreName}>{t("appStoreName")}</span>
             </span>
           </a>
-          <span className={styles.ctaOr}>or</span>
+          <span className={styles.ctaOr}>{t("or")}</span>
           <a
             href="#"
             className={`${styles.ctaStoreButton} ${styles.ctaGooglePlay}`}
-            aria-label="Get it on Google Play"
+            aria-label={t("ariaGooglePlay")}
           >
             <span className={styles.ctaStoreIcon} aria-hidden="true">
               <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
@@ -177,8 +179,8 @@ export default function CTASection() {
               </svg>
             </span>
             <span className={styles.ctaStoreText}>
-              <span className={styles.ctaStoreLabel}>Get it on</span>
-              <span className={styles.ctaStoreName}>Google Play</span>
+              <span className={styles.ctaStoreLabel}>{t("googlePlayLabel")}</span>
+              <span className={styles.ctaStoreName}>{t("googlePlayName")}</span>
             </span>
           </a>
         </div>

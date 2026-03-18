@@ -5,12 +5,14 @@ import StarfieldParticles from "./StarfieldParticles";
 import Hero from "./Hero";
 import GallerySectioned from "./GallerySectioned";
 import CTASection, { CTA_TRIGGER_ID } from "./CTASection";
+import LanguageSwitcher from "./LanguageSwitcher";
 import styles from "./LandingPage.module.css";
 
 // Main landing page: cosmic background, WebGL starfield, hero, carousel, multiplayer, CTA
 export default function LandingCinematic() {
   return (
     <main className={styles.page}>
+      <LanguageSwitcher />
       {/* Animated cosmic background that crossfades when CTA section enters view */}
       <CosmicBackgroundStack
         triggerId={CTA_TRIGGER_ID}

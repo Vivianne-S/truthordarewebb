@@ -1,0 +1,45 @@
+{
+  "hero": {
+    "title": "Truth or Dare",
+    "tagline": "Vem är den vågigaste av dem alla?",
+    "subtitle": "Perfekt för fester, födelsedagar, tjejkvällar, killkvällar & vänkretsar.",
+    "tagsLeft": ["Spela med vänner", "Utmana dig själv", "Inga gränser"],
+    "tagsRight": ["Ha kul", "Starta festen", "Skapa minnen"],
+    "scrollCue": "Scrolla för att utforska spelet"
+  },
+  "cta": {
+    "title": "Redo att spela?",
+    "subtitle1": "Ta med dina vänner och låt kaoset börja.",
+    "subtitle2": "Ladda ner nu och starta ditt första spel på sekunder.",
+    "appStoreLabel": "Ladda ner på",
+    "appStoreName": "App Store",
+    "googlePlayLabel": "Hämta på",
+    "googlePlayName": "Google Play",
+    "or": "eller",
+    "ariaAppStore": "Ladda ner på App Store",
+    "ariaGooglePlay": "Hämta på Google Play"
+  },
+  "gallery": {
+    "sections": {
+      "introduction": "Introduktion",
+      "local-game": "Lokalt spel",
+      "create-game": "Skapa spel",
+      "join-game": "Gå med i spel"
+    },
+    "labels": {
+      "truthOrDare": "Truth or Dare",
+      "howToPlay": "Så spelar du",
+      "chooseGameMode": "Välj spelläge",
+      "addPlayers": "Lägg till spelare",
+      "categories": "Kategorier",
+      "shop": "Shop",
+      "gameplay": "Spel",
+      "questions": "Frågor",
+      "buyMore": "Köp fler",
+      "gameOver": "Game Over",
+      "createGame": "Skapa spel",
+      "gameLobby": "Spellobbyn",
+      "joinGame": "Gå med i spel"
+    }
+  }
+}

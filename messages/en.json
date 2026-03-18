@@ -1,0 +1,45 @@
+{
+  "hero": {
+    "title": "Truth or Dare",
+    "tagline": "Who's the darest of them all?",
+    "subtitle": "Perfect for parties, birthdays, girls nights, guys nights & friend groups.",
+    "tagsLeft": ["Play with friends", "Challenge yourself", "No limits"],
+    "tagsRight": ["Have fun", "Get the party started", "Make memories"],
+    "scrollCue": "Scroll to explore gameplay"
+  },
+  "cta": {
+    "title": "Ready to play?",
+    "subtitle1": "Grab your friends and let the chaos begin.",
+    "subtitle2": "Download now and start your first game in seconds.",
+    "appStoreLabel": "Download on the",
+    "appStoreName": "App Store",
+    "googlePlayLabel": "Get it on",
+    "googlePlayName": "Google Play",
+    "or": "or",
+    "ariaAppStore": "Download on the App Store",
+    "ariaGooglePlay": "Get it on Google Play"
+  },
+  "gallery": {
+    "sections": {
+      "introduction": "Introduction",
+      "local-game": "Local game",
+      "create-game": "Create Game",
+      "join-game": "Join Game"
+    },
+    "labels": {
+      "truthOrDare": "Truth or Dare",
+      "howToPlay": "How to Play",
+      "chooseGameMode": "Choose Game Mode",
+      "addPlayers": "Add Players",
+      "categories": "Categories",
+      "shop": "Shop",
+      "gameplay": "Gameplay",
+      "questions": "Questions",
+      "buyMore": "Buy More",
+      "gameOver": "Game Over",
+      "createGame": "Create Game",
+      "gameLobby": "Game Lobby",
+      "joinGame": "Join Game"
+    }
+  }
+}

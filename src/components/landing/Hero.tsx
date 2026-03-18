@@ -3,17 +3,10 @@
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import { useTranslations } from "next-intl";
 import styles from "./Hero.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
-
-// Tag phrases shown on the left side of the hero
-const TAGS_LEFT = ["Play with friends", "Challenge yourself", "No limits"];
-// Tag phrases shown on the right side of the hero
-const TAGS_RIGHT = ["Have fun", "Get the party started", "Make memories"];
-
-// Title words split for letter-by-letter animation
-const TITLE_WORDS = ["Truth", "or", "Dare"];
 
 // Runs all hero entrance animations: letters, tagline, subtitle, tags, light sweep, scroll cue
 function runHeroAnimations(
@@ -106,6 +99,7 @@ function runHeroAnimations(
 
 // Hero section: animated title, tagline, tags, and scroll cue
 export default function Hero() {
+  const t = useTranslations("hero");
   const heroRef = useRef<HTMLElement>(null);
   const leftTagsRef = useRef<HTMLDivElement>(null);
   const rightTagsRef = useRef<HTMLDivElement>(null);
@@ -155,12 +149,13 @@ export default function Hero() {
     <section ref={heroRef} className={styles.hero}>
       <div className={styles.titleWrap}>
         <span className={styles.titleGlow} aria-hidden="true">
-          Truth or Dare
+          {t("title")}
         </span>
         <h1 className={styles.title}>
           {(() => {
+            const titleWords = t("title").split(" ");
             let letterIdx = 0;
-            return TITLE_WORDS.map((word) => (
+            return titleWords.map((word) => (
               <span key={word} className={styles.titleWord}>
                 {word.split("").map((char) => {
                   const idx = letterIdx++;
@@ -185,23 +180,23 @@ export default function Hero() {
 
       <div className={styles.taglineWrap}>
         <p ref={taglineRef} className={styles.tagline}>
-          Who&apos;s the darest of them all?
+          {t("tagline")}
         </p>
         <p ref={subtitleRef} className={styles.subtitle}>
-          Perfect for parties, birthdays, girls nights, guys nights & friend groups.
+          {t("subtitle")}
         </p>
       </div>
 
       <div className={styles.heroTags}>
         <div ref={leftTagsRef} className={styles.heroTagsLeft}>
-          {TAGS_LEFT.map((tag) => (
+          {(t.raw("tagsLeft") as string[]).map((tag) => (
             <span key={tag} className={styles.heroTag}>
               {tag}
             </span>
           ))}
         </div>
         <div ref={rightTagsRef} className={styles.heroTagsRight}>
-          {TAGS_RIGHT.map((tag) => (
+          {(t.raw("tagsRight") as string[]).map((tag) => (
             <span key={tag} className={styles.heroTag}>
               {tag}
             </span>
@@ -210,7 +205,7 @@ export default function Hero() {
       </div>
 
       <div ref={scrollCueRef} className={styles.scrollCue}>
-        <span className={styles.scrollCueText}>Scroll to explore gameplay</span>
+        <span className={styles.scrollCueText}>{t("scrollCue")}</span>
         <span className={styles.scrollCueArrow} aria-hidden="true">↓</span>
       </div>
     </section>
