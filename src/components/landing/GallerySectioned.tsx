@@ -6,6 +6,8 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import { GALLERY_SECTIONS } from "@/constants/landing";
 import FeatureCard from "./FeatureCard";
 import GalleryThreeBackground from "./GalleryThreeBackground";
+import GallerySectionTitle from "./GallerySectionTitle";
+import ProgressDots from "./ProgressDots";
 import styles from "./GallerySectioned.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -19,7 +21,7 @@ export default function GallerySectioned() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const titleRefs = useRef<(HTMLHeadingElement | null)[]>([]);
+  const titleRefs = useRef<(HTMLDivElement | null)[]>([]);
   const rowRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [activeSection, setActiveSection] = useState(0);
   const [activeCard, setActiveCard] = useState<number[]>(GALLERY_SECTIONS.map(() => 0));
@@ -30,7 +32,7 @@ export default function GallerySectioned() {
     if (!wrapper || !viewport) return;
 
     const sections = sectionRefs.current.filter(Boolean) as HTMLDivElement[];
-    const titles = titleRefs.current.filter(Boolean) as HTMLHeadingElement[];
+    const titles = titleRefs.current.filter(Boolean) as HTMLDivElement[];
     const rows = rowRefs.current.filter(Boolean) as HTMLDivElement[];
 
     if (sections.length === 0) return;
@@ -199,12 +201,11 @@ export default function GallerySectioned() {
             className={styles.section}
             data-section={section.id}
           >
-            <h2
+            <GallerySectionTitle
               ref={(el) => { titleRefs.current[sectionIndex] = el; }}
-              className={styles.sectionTitle}
-            >
-              {section.title}
-            </h2>
+              title={section.title}
+              isActive={activeSection === sectionIndex}
+            />
             <div
               ref={(el) => { rowRefs.current[sectionIndex] = el; }}
               className={styles.row}
@@ -238,6 +239,10 @@ export default function GallerySectioned() {
             </div>
           </div>
         ))}
+        <ProgressDots
+          count={GALLERY_SECTIONS.length}
+          activeIndex={activeSection}
+        />
       </div>
     </div>
   );

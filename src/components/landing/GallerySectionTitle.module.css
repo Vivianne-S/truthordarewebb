@@ -1,0 +1,87 @@
+.titleWrap {
+  position: relative;
+  margin: 0 0 2.5rem;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.titleGlow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-bebas), "Impact", sans-serif;
+  font-size: clamp(2.2rem, 7vw, 4rem);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  white-space: nowrap;
+  color: transparent;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 100, 220, 0.5) 0%,
+    rgba(200, 120, 255, 0.45) 40%,
+    rgba(140, 100, 255, 0.5) 70%,
+    rgba(100, 140, 255, 0.4) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: blur(24px);
+  opacity: 0.9;
+  pointer-events: none;
+  animation: galleryTitleGlowPulse 4s ease-in-out infinite;
+}
+
+@keyframes galleryTitleGlowPulse {
+  0%,
+  100% {
+    opacity: 0.8;
+    filter: blur(24px);
+  }
+  50% {
+    opacity: 1;
+    filter: blur(28px);
+  }
+}
+
+.sectionTitle {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-bebas), "Impact", sans-serif;
+  font-size: clamp(2.2rem, 7vw, 4rem);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: #fff;
+  margin: 0;
+  text-shadow:
+    0 0 40px rgba(255, 100, 220, 0.4),
+    0 0 80px rgba(180, 100, 255, 0.35),
+    0 0 120px rgba(100, 140, 255, 0.25);
+}
+
+.titleLetter {
+  display: inline-block;
+}
+
+.titleSpace {
+  min-width: 0.35em;
+}
+
+.lightSweep {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 150, 255, 0.05) 25%,
+    rgba(180, 120, 255, 0.12) 50%,
+    rgba(120, 150, 255, 0.05) 75%,
+    transparent 100%
+  );
+  transform-origin: left center;
+  pointer-events: none;
+  z-index: 3;
+}
