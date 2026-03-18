@@ -1,12 +1,13 @@
 "use client";
 
 import CosmicBackgroundStack from "./CosmicBackgroundStack";
+import StarfieldParticles from "./StarfieldParticles";
 import Hero from "./Hero";
 import FeaturesCarousel from "./FeaturesCarousel";
 import CTASection, { CTA_TRIGGER_ID } from "./CTASection";
 import styles from "./LandingPage.module.css";
 
-// Main landing page: stacked cosmic background, hero, feature carousel, and CTA
+// Main landing page: cosmic background, WebGL starfield, hero, carousel, multiplayer, CTA
 export default function LandingCinematic() {
   return (
     <main className={styles.page}>
@@ -18,6 +19,9 @@ export default function LandingCinematic() {
         nextLayer1="/cosmic-2.png"
         nextLayer2="/cosmic-4.png"
       />
+
+      {/* WebGL starfield overlay – depth, mouse parallax, cosmic colors */}
+      <StarfieldParticles />
 
       {/* Hero section with title, tagline, and scroll cue */}
       <Hero />
