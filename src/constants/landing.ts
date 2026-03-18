@@ -25,6 +25,7 @@ export const GALLERY_SECTIONS = [
     images: [
       { src: "/add-players.jpeg", label: "Add Players" },
       { src: "/categories.jpeg", label: "Categories" },
+      { src: "/shop1.jpeg", label: "Shop" },
       { src: "/gameplay1.jpeg", label: "Gameplay" },
       { src: "/gameplay2.jpeg", label: "Gameplay" },
       { src: "/questions-out.png", label: "Questions" },
@@ -39,6 +40,7 @@ export const GALLERY_SECTIONS = [
       { src: "/create-game.jpeg", label: "Create Game" },
       { src: "/create-game-lobby.jpeg", label: "Game Lobby" },
       { src: "/categories.jpeg", label: "Categories" },
+      { src: "/shop1.jpeg", label: "Shop" },
       { src: "/questions-out.png", label: "Questions" },
       { src: "/buy-more-questions.png", label: "Buy More" },
       { src: "/game-over.jpeg", label: "Game Over" },

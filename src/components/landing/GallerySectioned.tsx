@@ -166,7 +166,7 @@ export default function GallerySectioned() {
             const cardCenter = rect.left + rect.width / 2;
             const dist = Math.abs(cardCenter - cx);
             const norm = Math.min(1, dist / 400);
-            const scale = j === cardIndex ? 1.05 : 0.82;
+            const scale = j === cardIndex ? 1.12 : 0.82;
             const opacity = 0.82 + 0.18 * (1 - norm);
             const rotateY = ((cardCenter - cx) / 500) * -4;
             gsap.set(card as HTMLElement, { scale, opacity, rotateY });
