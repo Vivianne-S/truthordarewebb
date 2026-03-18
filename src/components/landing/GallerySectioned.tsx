@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import { useTranslations } from "next-intl";
 import { GALLERY_SECTIONS } from "@/constants/landing";
 import FeatureCard from "./FeatureCard";
 import GalleryThreeBackground from "./GalleryThreeBackground";
@@ -18,6 +19,8 @@ const SCROLL_PER_SECTION_GAP = 40; // Minimal paus mellan sektioner, ingen död 
 
 // Four gallery sections – pinned, must scroll through all, smooth transitions
 export default function GallerySectioned() {
+  const tSections = useTranslations("gallery.sections");
+  const tLabels = useTranslations("gallery.labels");
   const wrapperRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -203,7 +206,7 @@ export default function GallerySectioned() {
           >
             <GallerySectionTitle
               ref={(el) => { titleRefs.current[sectionIndex] = el; }}
-              title={section.title}
+              title={tSections(section.titleKey)}
               isActive={activeSection === sectionIndex}
             />
             <div
@@ -224,7 +227,7 @@ export default function GallerySectioned() {
                   }`}
                 >
                   <FeatureCard
-                    label={img.label}
+                    label={tLabels(img.labelKey)}
                     imageSrc={img.src}
                     isActive={
                       activeSection === sectionIndex &&
