@@ -85,10 +85,10 @@ function runHeroAnimations(
   for (let i = 0; i < Math.max(leftTags.length, rightTags.length); i++) {
     const startTime = 2.9 + i * rowDelay;
     if (leftTags[i]) {
-      gsap.to(leftTags[i], { x: 0, opacity: 0.9, scale: 1, duration: 1.4, ease: "power3.out", delay: startTime });
+      gsap.to(leftTags[i], { x: 0, opacity: 0.95, scale: 1, duration: 1.4, ease: "power3.out", delay: startTime });
     }
     if (rightTags[i]) {
-      gsap.to(rightTags[i], { x: 0, opacity: 0.9, scale: 1, duration: 1.4, ease: "power3.out", delay: startTime });
+      gsap.to(rightTags[i], { x: 0, opacity: 0.95, scale: 1, duration: 1.4, ease: "power3.out", delay: startTime });
     }
   }
 

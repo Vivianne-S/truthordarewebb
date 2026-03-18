@@ -19,7 +19,8 @@
   transform: translate(-50%, -50%);
   width: max(900px, 100vw);
   height: auto;
-  opacity: 0.9;
+  opacity: 1;
+  filter: brightness(1.15) contrast(1.05);
   will-change: transform;
 }
 
@@ -30,7 +31,8 @@
   transform: translate(-50%, -50%);
   width: max(1100px, 120vw);
   height: auto;
-  opacity: 0.8;
+  opacity: 0.95;
   mix-blend-mode: screen;
+  filter: brightness(1.1);
   will-change: transform;
 }
